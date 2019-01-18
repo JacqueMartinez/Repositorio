@@ -18,7 +18,7 @@ import javax.swing.JTextField;
  *
  */
 public class Events {
-
+    //Haciendo Prueba de Commit
     public void textKeyPress(KeyEvent evt) { //Metodo para validar que el tipo de dato ingresado sea solo TEXTO
         char caracter = evt.getKeyChar();
         if ((caracter < 'a' || caracter > 'z') && (caracter < 'A' || caracter > 'Z')
