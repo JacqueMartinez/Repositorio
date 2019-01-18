@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="52a22f68-1c81-4b2f-b3a9-7d7e8335ad51">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     clientes."id_cliente" AS clientes_id_cliente,
+     clientes."nombre" AS clientes_nombre,
+     clientes."apellidop" AS clientes_apellidop,
+     clientes."apellidom" AS clientes_apellidom,
+     clientes."domicilio" AS clientes_domicilio,
+     clientes."telefono" AS clientes_telefono,
+     clientes."correo" AS clientes_correo,
+     clientes."tipo_cliente" AS clientes_tipo_cliente,
+     clientes."rfc" AS clientes_rfc
+FROM
+     "dbo"."clientes" clientes
+where 
+clientes."tipo_cliente"='Moral']]>
+	</queryString>
+	<field name="clientes_id_cliente" class="java.lang.Integer"/>
+	<field name="clientes_nombre" class="java.lang.String"/>
+	<field name="clientes_apellidop" class="java.lang.String"/>
+	<field name="clientes_apellidom" class="java.lang.String"/>
+	<field name="clientes_domicilio" class="java.lang.String"/>
+	<field name="clientes_telefono" class="java.lang.String"/>
+	<field name="clientes_correo" class="java.lang.String"/>
+	<field name="clientes_tipo_cliente" class="java.lang.String"/>
+	<field name="clientes_rfc" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="164" splitType="Stretch">
+			<staticText>
+				<reportElement x="186" y="106" width="100" height="16" uuid="7b5ecba9-e7dd-464d-9dbb-4d92de51c5af"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tehuacan,Puebla]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="90" width="152" height="16" uuid="84a2fe61-6a6c-4bce-b587-411dc46c1c43"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Centro de la ciudad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="58" width="152" height="16" uuid="468f8255-e9df-4be7-be82-cac0b3df8bf9"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Resumen de la incorporacion fiscal]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="414" y="78" width="124" height="20" uuid="bd6262e3-1d21-4a22-853d-cd76c5029699"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="25" backcolor="#0866A4" uuid="47b1e385-602d-4f1f-b5d3-00c9e579f80e"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="186" y="74" width="100" height="16" uuid="119839bf-db91-4a02-9a8c-281d1bb6b743"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Calle 5 Pte. 109]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="5" width="233" height="20" forecolor="#FFFFFF" uuid="cbb3627d-82a5-4ed0-94ef-d2527075fcac"/>
+				<textElement>
+					<font fontName="Tahoma" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[- REPORTE DE DATOS  POR CLIENTE  -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="66" width="154" height="40" forecolor="#006699" uuid="80d6a00a-3339-4cf5-b736-80af641b9722"/>
+				<textElement>
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORTOMETH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="105" width="154" height="17" uuid="ed731262-7f9d-4e8d-a2a0-98f8f15b1612"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ortopedia Médica de Tehuacán]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="58" width="100" height="20" uuid="8031c26b-e148-4500-977d-36a8ebf8b55b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expedido :]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="8" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="0" width="555" height="1" backcolor="#000000" uuid="4ea489ef-85e5-43ea-bed5-7f82fd48b64a"/>
+			</rectangle>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="0" width="186" height="20" uuid="b31ce96c-15a6-4039-a4ea-9fbcb22fe5d4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS GENEREALES DEL CLIENTE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="170" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="90" width="69" height="20" uuid="8d36f400-28e5-4efd-9509-6bc91975cb5e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teléfono]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="90" width="100" height="20" uuid="d2452064-cb51-4389-bb47-abb123b52932"/>
+				<textFieldExpression><![CDATA[$F{clientes_telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="130" width="100" height="20" uuid="0670b1fd-13b1-4aba-88e6-a66f9fea91ed"/>
+				<textFieldExpression><![CDATA[$F{clientes_rfc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="130" width="69" height="20" uuid="27dab98a-673a-46c8-a958-e06cd7d3bbab"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RFC:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="10" width="49" height="20" uuid="174c0d96-9fb3-4cbe-8bde-1e133d504ede"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="50" width="69" height="20" uuid="71289b03-d18d-4b44-8e1c-11b839501967"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Razón Social:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="110" width="184" height="20" uuid="5dee6656-0607-4bf8-bbb7-2705b57f937b"/>
+				<textFieldExpression><![CDATA[$F{clientes_correo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="50" width="344" height="20" uuid="35dea82b-e66b-4813-895b-4fabf6cedf50"/>
+				<textFieldExpression><![CDATA[$F{clientes_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="110" width="68" height="20" uuid="b841bdf1-b341-4ec8-bd94-aee1e6f5be57"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Correo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="30" width="68" height="20" uuid="0983d932-d913-4ed6-ad68-3469d8e7d277"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Cliente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="70" y="70" width="209" height="20" uuid="d977ff8f-9274-4ba7-ae13-2d8a562c5fa8"/>
+				<textFieldExpression><![CDATA[$F{clientes_domicilio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="30" width="100" height="20" uuid="b09c6f89-0a4d-4839-937e-e3fe9476584e"/>
+				<textFieldExpression><![CDATA[$F{clientes_tipo_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="10" width="25" height="20" uuid="1d76426b-c454-4c57-81bb-a211596ef263"/>
+				<textFieldExpression><![CDATA[$F{clientes_id_cliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="70" width="68" height="20" uuid="1dff87f0-0400-4196-aec9-01d9e3bc9a20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Domiclio]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="160" width="554" height="1" uuid="464c9722-129e-4d47-8826-cccc5321b8fc"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
