@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="98ec92c3-eb1f-4348-81ae-9f283d808ec7">
+	<property name="ireport.zoom" value="1.2100000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idVenta" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     devoluciones."cantidad" AS Devuelto,
+     devoluciones."tipo" AS TipoDevolucion,
+     devoluciones."nombre_cliente" AS Cliente,
+     devoluciones."fecha" AS Solicitud,
+     devoluciones."fecha_entrega" AS Entrega,
+     devoluciones."id_venta" AS devoluciones_id_venta,
+     producto."clave_producto" AS producto_clave_producto
+FROM
+     "devoluciones" devoluciones INNER JOIN "dbo"."producto" producto ON devoluciones."id_producto" = producto."id_producto"
+WHERE
+     devoluciones."id_venta" = $P{idVenta}]]>
+	</queryString>
+	<field name="Devuelto" class="java.lang.Integer"/>
+	<field name="TipoDevolucion" class="java.lang.String"/>
+	<field name="Cliente" class="java.lang.String"/>
+	<field name="Solicitud" class="java.sql.Timestamp"/>
+	<field name="Entrega" class="java.sql.Timestamp"/>
+	<field name="devoluciones_id_venta" class="java.lang.Integer"/>
+	<field name="producto_clave_producto" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="149" splitType="Stretch">
+			<staticText>
+				<reportElement x="172" y="95" width="152" height="16" uuid="3cfca547-187a-4721-b667-a12636abffde"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tehuacan,Puebla]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="431" y="56" width="100" height="20" uuid="b28c0d2d-62a1-4b08-b5a5-9adcaf840aa8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Expedido :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="79" width="152" height="16" uuid="b80dbc30-3537-4f03-b7ff-c21fecad4fd8"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Centro de la ciudad, 75770]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="46" width="152" height="16" uuid="7fb079c3-2201-49aa-b3f9-71078fa2a1e1"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Resumen de la incorporacion fiscal]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="431" y="76" width="100" height="20" uuid="ce247f31-c48b-4081-bbca-8a554513441e"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="172" y="62" width="100" height="16" uuid="727398a3-193c-4fa3-9a60-efb04c3c9df2"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Calle 5 Pte. 109]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="25" backcolor="#0866A4" uuid="0e3f6e43-41e1-4b80-bbc2-3cfb53d042c3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="151" y="5" width="255" height="20" forecolor="#FFFFFF" uuid="6a147de3-a650-4988-b28b-e623fa4c1b88"/>
+				<textElement>
+					<font fontName="Tahoma" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[- DETALLES DE LA DEVOLUCIÓN POR VENTA -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-3" y="55" width="154" height="38" forecolor="#006699" uuid="284a8db9-f25f-4ee0-aacf-51f79eb79e69"/>
+				<textElement>
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORTOMETH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-3" y="96" width="154" height="15" uuid="424df0ad-dc8d-420d-a4ee-beb71bc211d1"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ortopedia Médica de Tehuacán]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="131" height="20" uuid="6d2284f1-879d-4b42-9af6-afe00a23c2bf"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Devoluciones de la Venta:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="131" y="0" width="30" height="20" uuid="adb1c465-d5d1-40a4-8305-e89e6bc7e1c5"/>
+				<textFieldExpression><![CDATA[$F{devoluciones_id_venta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="25" backcolor="#0866A4" uuid="0db28707-3788-4daa-b55a-2fb638a61917"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="20" y="5" width="76" height="20" forecolor="#FFFFFF" uuid="8382cfc4-2972-4e9b-8bbc-6a9b3789017e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clave Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="5" width="43" height="20" forecolor="#FFFFFF" uuid="18bd6e8f-3760-428b-af0b-b437426d1090"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Devuelto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="5" width="80" height="20" forecolor="#FFFFFF" uuid="7b66c5a8-0dc9-4456-817e-bf61b8c3c677"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Devolución]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="251" y="5" width="106" height="20" forecolor="#FFFFFF" uuid="23faa5a6-75ab-4a57-81d5-c1c0cb23cd4a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="5" width="69" height="20" forecolor="#FFFFFF" uuid="4996b1df-3903-4c90-b894-769eeb725a2a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Solicitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="5" width="78" height="20" forecolor="#FFFFFF" uuid="57f43ba1-f05d-46c6-8644-72964a0c714e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Entrega]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="20" y="10" width="76" height="20" uuid="7435b4c5-4d7d-4007-bb80-0c3618003c24"/>
+				<textFieldExpression><![CDATA[$F{producto_clave_producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="108" y="10" width="43" height="20" uuid="40544ea8-34c7-466a-a048-447dd2891a79"/>
+				<textFieldExpression><![CDATA[$F{Devuelto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="161" y="10" width="80" height="20" uuid="ad4914de-f30f-4f60-a5d4-95c00d3e027e"/>
+				<textFieldExpression><![CDATA[$F{TipoDevolucion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="251" y="10" width="106" height="20" uuid="ef117bc4-044a-47ba-94f7-570f39c32778"/>
+				<textFieldExpression><![CDATA[$F{Cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="10" width="69" height="20" uuid="00fa26cd-ac26-4f03-af04-b00f6e93e6cc"/>
+				<textFieldExpression><![CDATA[$F{Solicitud}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="457" y="10" width="78" height="20" uuid="229f1b62-dd1d-4041-a737-b4c11b0d81ad"/>
+				<textFieldExpression><![CDATA[$F{Entrega}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="32" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="31" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="29" splitType="Stretch"/>
+	</summary>
+</jasperReport>
