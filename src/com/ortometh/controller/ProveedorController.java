@@ -41,7 +41,7 @@ public class ProveedorController {
         
         List<Tipo_Producto> dep = productoDAO.listTipoProducto().stream().filter(tp -> tp.getNombre().equals(departamento)).collect(Collectors.toList());
         int dpto = dep.get(0).getId_tipo();
-        System.out.println(dpto);
+        System.out.println("Id Departamento: " + dpto);
         Proveedor proveedor = new Proveedor(nombre, RFC, telefono, correo, dpto, observaciones);
 
         String mensaje = proveedorDAOImpl.insertProveedor(proveedor, usuarioID);
@@ -85,12 +85,7 @@ public class ProveedorController {
                 List<Tipo_Producto> dep = productoDAO.listTipoProducto().stream().filter(tp -> tp.getId_tipo() == dept).collect(Collectors.toList());
                 dpto = dep.get(0).getNombre();
             }
-//            String dpto = null;
-//            try {
-//                dpto = productoDAO.seleccionar_nombre_tipo(dept);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(ProveedorController.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+
             System.out.println("Departameto" + dpto);
             
             columns[0] = listaProveedores.get(i).getId_proveedor();
@@ -107,20 +102,36 @@ public class ProveedorController {
 
     public void reFillProveedores(JTable tableProveedores) {
         tableProveedores.setModel(model);
+        String dpto = "";
         model.setRowCount(0);
 
-        Object[] columns = new Object[5];
+        Object[] columns = new Object[7];
 
         ArrayList<Proveedor> listaProveedores = proveedorDAOImpl.getProveedores();
         int filas = listaProveedores.size();
 
         for (int i = 0; i < filas; i++) {
+            int dept = listaProveedores.get(i).getDepartamento();
+            
+            if(dept == 0){
+                List<Tipo_Producto> dep = productoDAO.listTipoProducto().stream().filter(tp -> tp.getId_tipo() == 1).collect(Collectors.toList());
+                dpto = dep.get(0).getNombre();
+            } else {
+                System.out.println("Id dpto"+ dept);
+                List<Tipo_Producto> dep = productoDAO.listTipoProducto().stream().filter(tp -> tp.getId_tipo() == dept).collect(Collectors.toList());
+                dpto = dep.get(0).getNombre();
+            }
+
+            System.out.println("Departameto" + dpto);
+            
             columns[0] = listaProveedores.get(i).getId_proveedor();
             columns[1] = listaProveedores.get(i).getNombre();
             columns[2] = listaProveedores.get(i).getRfc();
             columns[3] = listaProveedores.get(i).getTelefono();
             columns[4] = listaProveedores.get(i).getCorreo();
-
+            columns[5] = dpto;
+            columns[6] = listaProveedores.get(i).getObservaciones();
+            
             model.addRow(columns);
         }
     }
@@ -142,18 +153,33 @@ public class ProveedorController {
 
     public boolean getProveedorByNombre(JTable tableProveedores, String parametro) {
         tableProveedores.setModel(model);
+        String dpto = "";
         model.setRowCount(0);
         boolean result = false;
 
-        Object[] columns = new Object[5];
+        Object[] columns = new Object[7];
 
         Proveedor listaProveedores = proveedorDAOImpl.getProveedorByName(parametro);
+        
+        int dept = listaProveedores.getDepartamento();
+            
+            if(dept == 0){
+                List<Tipo_Producto> dep = productoDAO.listTipoProducto().stream().filter(tp -> tp.getId_tipo() == 1).collect(Collectors.toList());
+                dpto = dep.get(0).getNombre();
+            } else {
+                System.out.println("Id dpto"+ dept);
+                List<Tipo_Producto> dep = productoDAO.listTipoProducto().stream().filter(tp -> tp.getId_tipo() == dept).collect(Collectors.toList());
+                dpto = dep.get(0).getNombre();
+            }
+        
         if (listaProveedores != null) {
             columns[0] = listaProveedores.getId_proveedor();
             columns[1] = listaProveedores.getNombre();
             columns[2] = listaProveedores.getRfc();
             columns[3] = listaProveedores.getTelefono();
             columns[4] = listaProveedores.getCorreo();
+            columns[5] = dpto;
+            columns[6] = listaProveedores.getObservaciones();
 
             model.addRow(columns);
             result = true;
@@ -165,18 +191,33 @@ public class ProveedorController {
 
     public boolean getProveedorByRFC(JTable tableProveedores, String parametro) {
         tableProveedores.setModel(model);
+        String dpto = "";
         model.setRowCount(0);
         boolean result = false;
 
-        Object[] columns = new Object[5];
+        Object[] columns = new Object[7];
 
         Proveedor listaProveedores = proveedorDAOImpl.getProveedorByRFC(parametro);
+        
+        int dept = listaProveedores.getDepartamento();
+            
+            if(dept == 0){
+                List<Tipo_Producto> dep = productoDAO.listTipoProducto().stream().filter(tp -> tp.getId_tipo() == 1).collect(Collectors.toList());
+                dpto = dep.get(0).getNombre();
+            } else {
+                System.out.println("Id dpto"+ dept);
+                List<Tipo_Producto> dep = productoDAO.listTipoProducto().stream().filter(tp -> tp.getId_tipo() == dept).collect(Collectors.toList());
+                dpto = dep.get(0).getNombre();
+            }
+        
         if (listaProveedores != null) {
             columns[0] = listaProveedores.getId_proveedor();
             columns[1] = listaProveedores.getNombre();
             columns[2] = listaProveedores.getRfc();
             columns[3] = listaProveedores.getTelefono();
             columns[4] = listaProveedores.getCorreo();
+            columns[4] = dpto;
+            columns[4] = listaProveedores.getObservaciones();
 
             model.addRow(columns);
             result = true;
