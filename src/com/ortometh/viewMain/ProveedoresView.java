@@ -5,6 +5,7 @@
  */
 package com.ortometh.viewMain;
 
+import com.ortometh.controller.ProductoController;
 import com.ortometh.controller.ProveedorController;
 import com.ortometh.model.Events;
 import com.ortometh.model.UsuarioLogin;
@@ -23,6 +24,7 @@ public class ProveedoresView extends javax.swing.JFrame {
      * Creates new form TiendaView
      */
     ProveedorController proveedorController = new ProveedorController();
+    ProductoController productoController = new ProductoController();
     Events evento = new Events();
     public static UsuarioLogin usuarioLog;
 
@@ -51,6 +53,7 @@ public class ProveedoresView extends javax.swing.JFrame {
         this.setResizable(false);
         this.usuarioLog = user;
         proveedorController.fillProveedores(tableProveedores);
+        productoController.fillCombotTipoProducto(cbxDepartamento);
         txtusuarioID.setText(String.valueOf(user.getIdUserLog()));
         txtproveedorID.setVisible(false);
         txtActions.setVisible(false);
@@ -93,6 +96,11 @@ public class ProveedoresView extends javax.swing.JFrame {
         cbxBusqueda = new javax.swing.JComboBox<>();
         btnBuscar = new com.ortometh.RSbuttom.RSButtonMetro();
         btnRecargar = new com.ortometh.RSbuttom.RSButtonMetro();
+        cbxDepartamento = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txaObservaciones = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
@@ -108,11 +116,11 @@ public class ProveedoresView extends javax.swing.JFrame {
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ortometh/img/footer.png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 590, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 596, -1, -1));
 
         jLabel1.setForeground(new java.awt.Color(67, 98, 158));
-        jLabel1.setText("Correo");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, -1, -1));
+        jLabel1.setText("Observaciones");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
 
         tableProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -130,24 +138,24 @@ public class ProveedoresView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableProveedores);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, 710, 300));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 220, 710, 360));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 30)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(67, 98, 158));
         jLabel4.setText("Proveedores");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, 30));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, 30));
 
         jLabel5.setForeground(new java.awt.Color(67, 98, 158));
         jLabel5.setText("Nombre");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
         jLabel6.setForeground(new java.awt.Color(67, 98, 158));
         jLabel6.setText("RFC");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
 
         jLabel7.setForeground(new java.awt.Color(67, 98, 158));
         jLabel7.setText("Teléfono");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
 
         btnEliminar.setBackground(new java.awt.Color(231, 50, 116));
         btnEliminar.setText("Eliminar");
@@ -159,7 +167,7 @@ public class ProveedoresView extends javax.swing.JFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 530, 90, 30));
+        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 560, 90, 20));
 
         btnNuevo.setBackground(new java.awt.Color(231, 50, 116));
         btnNuevo.setText("Nuevo");
@@ -171,7 +179,7 @@ public class ProveedoresView extends javax.swing.JFrame {
                 btnNuevoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 90, 30));
+        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 90, 20));
 
         btnGuardar.setBackground(new java.awt.Color(231, 50, 116));
         btnGuardar.setText("Guardar");
@@ -183,7 +191,7 @@ public class ProveedoresView extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 530, 80, 30));
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 560, 80, 20));
 
         txtTelefono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -191,7 +199,7 @@ public class ProveedoresView extends javax.swing.JFrame {
                 txtTelefonoKeyTyped(evt);
             }
         });
-        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 280, -1));
+        getContentPane().add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 280, -1));
         txtTelefono.getAccessibleContext().setAccessibleName("");
         txtTelefono.getAccessibleContext().setAccessibleDescription("");
 
@@ -201,7 +209,7 @@ public class ProveedoresView extends javax.swing.JFrame {
                 txtFiltrarKeyReleased(evt);
             }
         });
-        getContentPane().add(txtFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 210, 400, -1));
+        getContentPane().add(txtFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 190, 400, -1));
 
         txtRFC.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         txtRFC.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -212,18 +220,18 @@ public class ProveedoresView extends javax.swing.JFrame {
                 txtRFCKeyTyped(evt);
             }
         });
-        getContentPane().add(txtRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 280, -1));
+        getContentPane().add(txtRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 280, -1));
 
         txtCorreo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 280, -1));
+        getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 280, -1));
 
         txtproveedorID.setEditable(false);
         txtproveedorID.setBackground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(txtproveedorID, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, 90, -1));
+        getContentPane().add(txtproveedorID, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 40, -1));
 
         txtusuarioID.setEditable(false);
         txtusuarioID.setBackground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(txtusuarioID, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, 90, -1));
+        getContentPane().add(txtusuarioID, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 30, -1));
         getContentPane().add(txtActions, new org.netbeans.lib.awtextra.AbsoluteConstraints(989, 560, 40, -1));
 
         txtNombre.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -232,10 +240,10 @@ public class ProveedoresView extends javax.swing.JFrame {
                 txtNombreKeyTyped(evt);
             }
         });
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 280, -1));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 280, -1));
 
         cbxBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "RFC" }));
-        getContentPane().add(cbxBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 210, 120, -1));
+        getContentPane().add(cbxBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 120, -1));
 
         btnBuscar.setBackground(new java.awt.Color(231, 50, 116));
         btnBuscar.setText("Buscar");
@@ -247,7 +255,7 @@ public class ProveedoresView extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 210, 70, 20));
+        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 190, 70, 20));
 
         btnRecargar.setBackground(new java.awt.Color(231, 50, 116));
         btnRecargar.setText("Recargar");
@@ -259,7 +267,31 @@ public class ProveedoresView extends javax.swing.JFrame {
                 btnRecargarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRecargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 210, 70, 20));
+        getContentPane().add(btnRecargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 190, 70, 20));
+
+        cbxDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+        getContentPane().add(cbxDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 280, -1));
+
+        jLabel8.setForeground(new java.awt.Color(67, 98, 158));
+        jLabel8.setText("Correo");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
+
+        jLabel9.setForeground(new java.awt.Color(67, 98, 158));
+        jLabel9.setText("Departamento");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
+
+        txaObservaciones.setColumns(20);
+        txaObservaciones.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        txaObservaciones.setLineWrap(true);
+        txaObservaciones.setRows(5);
+        txaObservaciones.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txaObservacionesKeyTyped(evt);
+            }
+        });
+        jScrollPane2.setViewportView(txaObservaciones);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 280, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -288,17 +320,19 @@ public class ProveedoresView extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // Botton Guardar
         if (txtActions.getText().equals("i")) {
-            if (txtNombre.getText().equals("") || txtRFC.getText().equals("") || txtTelefono.getText().equals("") || txtCorreo.getText().equals("")) {
+            if (txtNombre.getText().equals("") || txtRFC.getText().equals("") || txtTelefono.getText().equals("") || txtCorreo.getText().equals("") || txaObservaciones.getText().equals("") || cbxDepartamento.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Llene todos los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
             } else {
                 String nombre = txtNombre.getText();
                 String RFC = txtRFC.getText();
                 String telefono = txtTelefono.getText();
                 String correo = txtCorreo.getText();
+                String departamento = (String) cbxDepartamento.getSelectedItem();
+                String observaciones = txaObservaciones.getText();
                 int usuarioID = Integer.parseInt(txtusuarioID.getText());
 
                 if (evento.validarEmail(correo)) {
-                    String message = proveedorController.ingresarProveedor(nombre, RFC, telefono, correo, usuarioID);
+                    String message = proveedorController.ingresarProveedor(nombre, RFC, telefono, correo, departamento, observaciones, usuarioID);
                     recargarTabla();
                     clearTextFileds();
                     btnEliminar.setVisible(false);
@@ -308,7 +342,7 @@ public class ProveedoresView extends javax.swing.JFrame {
                 }
             }
         } else if (txtActions.getText().equals("m")) {
-            if (txtNombre.getText().equals("") || txtRFC.getText().equals("") || txtTelefono.getText().equals("") || txtCorreo.getText().equals("")) {
+            if (txtNombre.getText().equals("") || txtRFC.getText().equals("") || txtTelefono.getText().equals("") || txtCorreo.getText().equals("") || txaObservaciones.getText().equals("") || cbxDepartamento.getSelectedIndex() == 0) {
                 JOptionPane.showMessageDialog(null, "Campos vacíos", "Advertencia", JOptionPane.WARNING_MESSAGE);
             } else {
                 int idProveedor = Integer.parseInt(txtproveedorID.getText());
@@ -316,10 +350,12 @@ public class ProveedoresView extends javax.swing.JFrame {
                 String RFC = txtRFC.getText();
                 String telefono = txtTelefono.getText();
                 String correo = txtCorreo.getText();
+                String departamento = (String) cbxDepartamento.getSelectedItem();
+                String observaciones = txaObservaciones.getText();
                 int usuarioID = Integer.parseInt(txtusuarioID.getText());
 
                 if (evento.validarEmail(correo)) {
-                    String message = proveedorController.modificarProveedor(idProveedor, nombre, RFC, telefono, correo, usuarioID);
+                    String message = proveedorController.modificarProveedor(idProveedor, nombre, RFC, telefono, correo, departamento, observaciones, usuarioID);
                     recargarTabla();
                     clearTextFileds();
                     btnEliminar.setVisible(false);
@@ -343,12 +379,16 @@ public class ProveedoresView extends javax.swing.JFrame {
         String RFC = tableProveedores.getValueAt(fila, 2).toString();
         String telefono = tableProveedores.getValueAt(fila, 3).toString();
         String correo = tableProveedores.getValueAt(fila, 4).toString();
+        String departamento = (String) tableProveedores.getValueAt(fila, 5);
+        String observaciones = (String) tableProveedores.getValueAt(fila, 6);
 
         txtproveedorID.setText(String.valueOf(id));
         txtNombre.setText(nombre);
         txtRFC.setText(RFC);
         txtTelefono.setText(telefono);
         txtCorreo.setText(correo);
+        cbxDepartamento.setSelectedItem(departamento);
+        txaObservaciones.setText(observaciones);
         txtActions.setText("m");
     }//GEN-LAST:event_tableProveedoresMouseClicked
 
@@ -417,12 +457,19 @@ public class ProveedoresView extends javax.swing.JFrame {
         tv.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
+    private void txaObservacionesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaObservacionesKeyTyped
+         // TODO add your handling code here:
+         evento.upperFisrtLetterTA(evt, txaObservaciones);
+    }//GEN-LAST:event_txaObservacionesKeyTyped
+
     private void clearTextFileds() {
         txtNombre.setText(null);
         txtRFC.setText(null);
         txtTelefono.setText(null);
         txtCorreo.setText(null);
         txtproveedorID.setText(null);
+        cbxDepartamento.setSelectedIndex(0);
+        txaObservaciones.setText(null);
     }
     
     private void recargarTabla(){
@@ -598,6 +645,7 @@ public class ProveedoresView extends javax.swing.JFrame {
     private com.ortometh.RSbuttom.RSButtonMetro btnNuevo;
     private com.ortometh.RSbuttom.RSButtonMetro btnRecargar;
     private javax.swing.JComboBox<String> cbxBusqueda;
+    private javax.swing.JComboBox<String> cbxDepartamento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -605,8 +653,12 @@ public class ProveedoresView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableProveedores;
+    private javax.swing.JTextArea txaObservaciones;
     private javax.swing.JTextField txtActions;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtFiltrar;

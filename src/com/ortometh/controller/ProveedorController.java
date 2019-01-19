@@ -5,8 +5,10 @@
  */
 package com.ortometh.controller;
 
+import com.ortometh.Dao.ProductoDaoImpl;
 import com.ortometh.Dao.ProveedorDAOImpl;
 import com.ortometh.model.Proveedor;
+import com.ortometh.model.Tipo_Producto;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +35,14 @@ public class ProveedorController {
     };
 
     ProveedorDAOImpl proveedorDAOImpl = new ProveedorDAOImpl();
+    ProductoDaoImpl productoDAO = new ProductoDaoImpl();
 
-    public String ingresarProveedor(String nombre, String RFC, String telefono, String correo, int usuarioID) {
-        Proveedor proveedor = new Proveedor(nombre, RFC, telefono, correo);
+    public String ingresarProveedor(String nombre, String RFC, String telefono, String correo, String departamento, String observaciones, int usuarioID) {
+        
+        List<Tipo_Producto> dep = productoDAO.listTipoProducto().stream().filter(tp -> tp.getNombre().equals(departamento)).collect(Collectors.toList());
+        int dpto = dep.get(0).getId_tipo();
+        System.out.println(dpto);
+        Proveedor proveedor = new Proveedor(nombre, RFC, telefono, correo, dpto, observaciones);
 
         String mensaje = proveedorDAOImpl.insertProveedor(proveedor, usuarioID);
         return mensaje;
@@ -44,31 +51,56 @@ public class ProveedorController {
     public void fillProveedores(JTable tableProveedores) {
         tableProveedores.setModel(model);
         TableColumnModel columnModel = tableProveedores.getColumnModel();
+        String dpto = "";
 
         model.addColumn("ID");
         model.addColumn("NOMBRE");
         model.addColumn("RFC");
         model.addColumn("TELÉFONO");
-        model.addColumn("CORREO ELECTRÓNICO");
+        model.addColumn("E-MAIL");
+        model.addColumn("DEPARTAMENTO");
+        model.addColumn("OBSERVACIONES");
 
         columnModel.getColumn(0).setPreferredWidth(50);
-        columnModel.getColumn(1).setPreferredWidth(250);
-        columnModel.getColumn(2).setPreferredWidth(100);
+        columnModel.getColumn(1).setPreferredWidth(170);
+        columnModel.getColumn(2).setPreferredWidth(150);
         columnModel.getColumn(3).setPreferredWidth(100);
         columnModel.getColumn(4).setPreferredWidth(200);
+        columnModel.getColumn(5).setPreferredWidth(130);
+        columnModel.getColumn(6).setPreferredWidth(150);
 
-        Object[] columns = new Object[5];
+        Object[] columns = new Object[7];
 
         ArrayList<Proveedor> listaProveedores = proveedorDAOImpl.getProveedores();
         int filas = listaProveedores.size();
 
         for (int i = 0; i < filas; i++) {
+            int dept = listaProveedores.get(i).getDepartamento();
+            
+            if(dept == 0){
+                List<Tipo_Producto> dep = productoDAO.listTipoProducto().stream().filter(tp -> tp.getId_tipo() == 1).collect(Collectors.toList());
+                dpto = dep.get(0).getNombre();
+            } else {
+                System.out.println("Id dpto"+ dept);
+                List<Tipo_Producto> dep = productoDAO.listTipoProducto().stream().filter(tp -> tp.getId_tipo() == dept).collect(Collectors.toList());
+                dpto = dep.get(0).getNombre();
+            }
+//            String dpto = null;
+//            try {
+//                dpto = productoDAO.seleccionar_nombre_tipo(dept);
+//            } catch (SQLException ex) {
+//                Logger.getLogger(ProveedorController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            System.out.println("Departameto" + dpto);
+            
             columns[0] = listaProveedores.get(i).getId_proveedor();
             columns[1] = listaProveedores.get(i).getNombre();
             columns[2] = listaProveedores.get(i).getRfc();
             columns[3] = listaProveedores.get(i).getTelefono();
             columns[4] = listaProveedores.get(i).getCorreo();
-
+            columns[5] = dpto;
+            columns[6] = listaProveedores.get(i).getObservaciones();
+            
             model.addRow(columns);
         }
     }
@@ -93,8 +125,11 @@ public class ProveedorController {
         }
     }
 
-    public String modificarProveedor(int idProveedor, String nombre, String RFC, String telefono, String correo, int usuarioID) {
-        Proveedor proveedor = new Proveedor(idProveedor, nombre, RFC, telefono, correo);
+    public String modificarProveedor(int idProveedor, String nombre, String RFC, String telefono, String correo, String departamento, String observaciones, int usuarioID) {
+        List<Tipo_Producto> dep = productoDAO.listTipoProducto().stream().filter(tp -> tp.getNombre().equals(departamento)).collect(Collectors.toList());
+        int dpto = dep.get(0).getId_tipo();
+        System.out.println(dpto);
+        Proveedor proveedor = new Proveedor(idProveedor, nombre, RFC, telefono, correo, dpto, observaciones);
 
         String message = proveedorDAOImpl.updateProveedor(proveedor, usuarioID);
         return message;

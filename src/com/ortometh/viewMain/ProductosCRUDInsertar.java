@@ -25,8 +25,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ProductosCRUDInsertar extends javax.swing.JFrame {
     ProductoController productoController = new ProductoController();
-     Events evento = new Events();
-     public static UsuarioLogin usuario;
+    Events evento = new Events();
+    public static UsuarioLogin usuario;
     /**
      * Creates new form ProductosCRUD
      */

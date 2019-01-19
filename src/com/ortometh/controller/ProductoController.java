@@ -221,6 +221,15 @@ public class ProductoController {
         }
         comboTipo_producto.setModel(model);
     }
+    
+    public void fillCombotTipoProducto(JComboBox comboTipo_producto){
+        ArrayList<Tipo_Producto> tipo_producto = productoVentaDaoImpl.listTipoProducto();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < tipo_producto.size(); i++) {
+            model.addElement(tipo_producto.get(i).getNombre());
+        }
+        comboTipo_producto.setModel(model);
+    }
     /* CONTROLADOR PARA LLENAR EL COMBO DE PROVEEDOR */
     public void fillComboProveedor(JComboBox comboProveedor){
         ArrayList<Proveedor> proveedor = productoVentaDaoImpl.listProveedor();

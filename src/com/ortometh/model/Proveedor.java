@@ -16,24 +16,30 @@ public class Proveedor {
     private String rfc;
     private String telefono;
     private String correo;
+    private int departamento;
+    private String observaciones;
     
     public Proveedor(){
         
     }
 
-    public Proveedor(int id_proveedor, String nombre, String rfc, String telefono, String correo) {
+    public Proveedor(int id_proveedor, String nombre, String rfc, String telefono, String correo, int departamento, String observaciones) {
         this.id_proveedor = id_proveedor;
         this.nombre = nombre;
         this.rfc = rfc;
         this.telefono = telefono;
         this.correo = correo;
+        this.departamento = departamento;
+        this.observaciones = observaciones;
     }
     
-     public Proveedor(String nombre, String rfc, String telefono, String correo) {
+     public Proveedor(String nombre, String rfc, String telefono, String correo, int departamento, String observaciones) {
         this.nombre = nombre;
         this.rfc = rfc;
         this.telefono = telefono;
         this.correo = correo;
+        this.departamento = departamento;
+        this.observaciones = observaciones;
     }
 
     public int getId_proveedor() {
@@ -75,5 +81,22 @@ public class Proveedor {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
+    public int getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(int departamento) {
+        this.departamento = departamento;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+    
     
 }

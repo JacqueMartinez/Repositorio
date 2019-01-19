@@ -31,12 +31,14 @@ public class ProveedorDAOImpl implements ProveedorDAO {
         String serverAnswer = null;
 
         try {
-            CallableStatement sta = cn.prepareCall("{Call agregarProveedor (?,?,?,?,?)}");
+            CallableStatement sta = cn.prepareCall("{Call agregarProveedor (?,?,?,?,?,?,?)}");
             sta.setString(1, newProveedor.getNombre());
             sta.setString(2, newProveedor.getRfc());
             sta.setString(3, newProveedor.getTelefono());
             sta.setString(4, newProveedor.getCorreo());
-            sta.setInt(5, usuarioID);
+            sta.setInt(5, newProveedor.getDepartamento());
+            sta.setString(6, newProveedor.getObservaciones());
+            sta.setInt(7, usuarioID);
 
             int numAffectedRows = sta.executeUpdate();
 
@@ -66,6 +68,8 @@ public class ProveedorDAOImpl implements ProveedorDAO {
                 proveedor.setRfc(rs.getString(3));
                 proveedor.setTelefono(rs.getString(4));
                 proveedor.setCorreo(rs.getString(5));
+                proveedor.setDepartamento(rs.getInt(7));
+                proveedor.setObservaciones(rs.getString(8));
 
                 getProveedores.add(proveedor);
 
@@ -81,13 +85,15 @@ public class ProveedorDAOImpl implements ProveedorDAO {
         String serverAnswer = null;
 
         try {
-            CallableStatement sta = cn.prepareCall("{Call actualizarProveedor (?,?,?,?,?,?)}");
+            CallableStatement sta = cn.prepareCall("{Call actualizarProveedor (?,?,?,?,?,?,?,?)}");
             sta.setInt(1, proveedor.getId_proveedor());
             sta.setString(2, proveedor.getNombre());
             sta.setString(3, proveedor.getRfc());
             sta.setString(4, proveedor.getTelefono());
             sta.setString(5, proveedor.getCorreo());
-            sta.setInt(6, usuarioID);
+            sta.setInt(6, proveedor.getDepartamento());
+            sta.setString(7, proveedor.getObservaciones());
+            sta.setInt(8, usuarioID);
 
             int numAffectedRows = sta.executeUpdate();
 
