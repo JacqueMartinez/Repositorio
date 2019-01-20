@@ -88,8 +88,8 @@ public class TiendaView extends javax.swing.JFrame {
 
         lblTienda.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         lblTienda.setForeground(new java.awt.Color(67, 98, 158));
-        lblTienda.setText("TIENDA");
-        getContentPane().add(lblTienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 237, -1, -1));
+        lblTienda.setText("ORTOPEDIA");
+        getContentPane().add(lblTienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
         rSButtonMetro1.setBackground(new java.awt.Color(144, 67, 96));
         rSButtonMetro1.setText("VENDER");

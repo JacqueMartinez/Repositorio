@@ -76,7 +76,7 @@ public class MenuView extends javax.swing.JFrame {
         lblMenu.setText("MENÚ");
         getContentPane().add(lblMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 237, -1, -1));
 
-        rSButtonMetro1.setText("TIENDA");
+        rSButtonMetro1.setText("ORTOPEDIA");
         rSButtonMetro1.setColorNormal(new java.awt.Color(144, 67, 96));
         rSButtonMetro1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         rSButtonMetro1.addActionListener(new java.awt.event.ActionListener() {

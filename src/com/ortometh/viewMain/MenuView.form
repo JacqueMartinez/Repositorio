@@ -70,7 +70,7 @@
     </Component>
     <Component class="com.ortometh.RSbuttom.RSButtonMetro" name="rSButtonMetro1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="TIENDA"/>
+        <Property name="text" type="java.lang.String" value="ORTOPEDIA"/>
         <Property name="colorNormal" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="60" green="43" red="90" type="rgb"/>
         </Property>
