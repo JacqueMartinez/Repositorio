@@ -55,7 +55,7 @@ public class MenuView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblMenu = new javax.swing.JLabel();
-        rSButtonMetro1 = new com.ortometh.RSbuttom.RSButtonMetro();
+        btnOrtopedia = new com.ortometh.RSbuttom.RSButtonMetro();
         jLabel6 = new javax.swing.JLabel();
         txtIdUsuarioLogin = new javax.swing.JTextField();
         btnUusarios = new com.ortometh.RSbuttom.RSButtonMetro();
@@ -76,15 +76,15 @@ public class MenuView extends javax.swing.JFrame {
         lblMenu.setText("MENÚ");
         getContentPane().add(lblMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 237, -1, -1));
 
-        rSButtonMetro1.setText("ORTOPEDIA");
-        rSButtonMetro1.setColorNormal(new java.awt.Color(144, 67, 96));
-        rSButtonMetro1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        rSButtonMetro1.addActionListener(new java.awt.event.ActionListener() {
+        btnOrtopedia.setText("ORTOPEDIA");
+        btnOrtopedia.setColorNormal(new java.awt.Color(144, 67, 96));
+        btnOrtopedia.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnOrtopedia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonMetro1ActionPerformed(evt);
+                btnOrtopediaActionPerformed(evt);
             }
         });
-        getContentPane().add(rSButtonMetro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 197, 80));
+        getContentPane().add(btnOrtopedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 197, 80));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(67, 98, 158));
@@ -112,12 +112,12 @@ public class MenuView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
+    private void btnOrtopediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrtopediaActionPerformed
         // TODO add your handling code here:
         TiendaView a = new TiendaView(usuario);
         a.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_rSButtonMetro1ActionPerformed
+    }//GEN-LAST:event_btnOrtopediaActionPerformed
 
     private void btnUusariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUusariosActionPerformed
         // TODO add your handling code here:
@@ -230,12 +230,12 @@ public class MenuView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.ortometh.RSbuttom.RSButtonMetro btnOrtopedia;
     private com.ortometh.RSbuttom.RSButtonMetro btnUusarios;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel lblMenu;
-    private com.ortometh.RSbuttom.RSButtonMetro rSButtonMetro1;
     public static javax.swing.JTextField txtIdUsuarioLogin;
     private javax.swing.JTextField txtNombreLogin;
     // End of variables declaration//GEN-END:variables
