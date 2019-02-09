@@ -53,6 +53,33 @@ public class ProveedorDAOImpl implements ProveedorDAO {
     }
 
     @Override
+    public ArrayList<Proveedor> getProveedores(int idDepartamento) {
+        ArrayList getProveedores = new ArrayList();
+        Proveedor proveedor;
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select * from proveedor where estado = 1 and departamento =" + idDepartamento);
+            while (rs.next()) {
+                proveedor = new Proveedor();
+                
+                proveedor.setId_proveedor(rs.getInt(1));
+                proveedor.setNombre(rs.getString(2));
+                proveedor.setRfc(rs.getString(3));
+                proveedor.setTelefono(rs.getString(4));
+                proveedor.setCorreo(rs.getString(5));
+                proveedor.setDepartamento(rs.getInt(7));
+                proveedor.setObservaciones(rs.getString(8));
+
+                getProveedores.add(proveedor);
+
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return getProveedores;
+    }
+    
     public ArrayList<Proveedor> getProveedores() {
         ArrayList getProveedores = new ArrayList();
         Proveedor proveedor;

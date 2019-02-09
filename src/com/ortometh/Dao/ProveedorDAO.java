@@ -16,7 +16,7 @@ public interface ProveedorDAO {
     
     String insertProveedor(Proveedor newProveedor, int usuarioID);
     
-    ArrayList<Proveedor> getProveedores();
+    ArrayList<Proveedor> getProveedores(int idDepartamento);
     
     String updateProveedor(Proveedor proveedor, int usuarioID);
     

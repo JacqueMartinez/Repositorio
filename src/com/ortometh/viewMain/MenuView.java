@@ -5,6 +5,7 @@
  */
 package com.ortometh.viewMain;
 
+import com.ortometh.model.Departamento;
 import com.ortometh.model.UsuarioLogin;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -20,7 +21,7 @@ public class MenuView extends javax.swing.JFrame {
      */
     public static MenuView frmMenuView;
     public static UsuarioLogin usuario;
-
+    public static Departamento departamento;
     public MenuView() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -60,6 +61,7 @@ public class MenuView extends javax.swing.JFrame {
         txtIdUsuarioLogin = new javax.swing.JTextField();
         btnUusarios = new com.ortometh.RSbuttom.RSButtonMetro();
         txtNombreLogin = new javax.swing.JTextField();
+        btnOsteotesintesis = new com.ortometh.RSbuttom.RSButtonMetro();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
@@ -109,12 +111,23 @@ public class MenuView extends javax.swing.JFrame {
         getContentPane().add(btnUusarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 260, 200, 80));
         getContentPane().add(txtNombreLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 320, 90, -1));
 
+        btnOsteotesintesis.setText("OSTEOTESINTESIS");
+        btnOsteotesintesis.setColorNormal(new java.awt.Color(102, 102, 102));
+        btnOsteotesintesis.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnOsteotesintesis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOsteotesintesisActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnOsteotesintesis, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, 197, 80));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOrtopediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrtopediaActionPerformed
         // TODO add your handling code here:
-        TiendaView a = new TiendaView(usuario);
+        departamento = new Departamento(1, "Ortopedia");
+        TiendaView a = new TiendaView(usuario, departamento);
         a.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnOrtopediaActionPerformed
@@ -130,6 +143,14 @@ public class MenuView extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void btnOsteotesintesisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsteotesintesisActionPerformed
+        // TODO add your handling code here:
+        departamento = new Departamento(2, "Osteotesintesis");
+        TiendaView a = new TiendaView(usuario, departamento);
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnOsteotesintesisActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,6 +252,7 @@ public class MenuView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.ortometh.RSbuttom.RSButtonMetro btnOrtopedia;
+    private com.ortometh.RSbuttom.RSButtonMetro btnOsteotesintesis;
     private com.ortometh.RSbuttom.RSButtonMetro btnUusarios;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

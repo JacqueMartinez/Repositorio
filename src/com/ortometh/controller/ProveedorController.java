@@ -48,7 +48,7 @@ public class ProveedorController {
         return mensaje;
     }
 
-    public void fillProveedores(JTable tableProveedores) {
+    public void fillProveedores(JTable tableProveedores, int idDepartamento) {
         tableProveedores.setModel(model);
         TableColumnModel columnModel = tableProveedores.getColumnModel();
         String dpto = "";
@@ -70,8 +70,8 @@ public class ProveedorController {
         columnModel.getColumn(6).setPreferredWidth(150);
 
         Object[] columns = new Object[7];
-
-        ArrayList<Proveedor> listaProveedores = proveedorDAOImpl.getProveedores();
+        
+        ArrayList<Proveedor> listaProveedores = proveedorDAOImpl.getProveedores(idDepartamento);
         int filas = listaProveedores.size();
 
         for (int i = 0; i < filas; i++) {
@@ -81,13 +81,10 @@ public class ProveedorController {
                 List<Tipo_Producto> dep = productoDAO.listTipoProducto().stream().filter(tp -> tp.getId_tipo() == 1).collect(Collectors.toList());
                 dpto = dep.get(0).getNombre();
             } else {
-                System.out.println("Id dpto"+ dept);
                 List<Tipo_Producto> dep = productoDAO.listTipoProducto().stream().filter(tp -> tp.getId_tipo() == dept).collect(Collectors.toList());
                 dpto = dep.get(0).getNombre();
             }
 
-            System.out.println("Departameto" + dpto);
-            
             columns[0] = listaProveedores.get(i).getId_proveedor();
             columns[1] = listaProveedores.get(i).getNombre();
             columns[2] = listaProveedores.get(i).getRfc();
@@ -100,14 +97,14 @@ public class ProveedorController {
         }
     }
 
-    public void reFillProveedores(JTable tableProveedores) {
+    public void reFillProveedores(JTable tableProveedores, int idDepartamento) {
         tableProveedores.setModel(model);
         String dpto = "";
         model.setRowCount(0);
 
         Object[] columns = new Object[7];
 
-        ArrayList<Proveedor> listaProveedores = proveedorDAOImpl.getProveedores();
+        ArrayList<Proveedor> listaProveedores = proveedorDAOImpl.getProveedores(idDepartamento);
         int filas = listaProveedores.size();
 
         for (int i = 0; i < filas; i++) {

@@ -5,6 +5,7 @@
  */
 package com.ortometh.viewMain;
 
+import com.ortometh.model.Departamento;
 import com.ortometh.model.UsuarioLogin;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -24,20 +25,22 @@ public class TiendaView extends javax.swing.JFrame {
      * Creates new form TiendaView
      */
     public static UsuarioLogin usuario;
+    public static Departamento departamento;
+    
     public TiendaView() {
         initComponents();
         this.setLocationRelativeTo(null);
         txtIdUserLogin.setVisible(false);
     }
     
-    public TiendaView(UsuarioLogin user) {
+    public TiendaView(UsuarioLogin user, Departamento dep) {
         initComponents();
-//        Image icon = new ImageIcon(getClass().getResource("../img/Ortomethlogo1.png")).getImage();
-//        setIconImage(icon);
-//        this.setTitle("Tienda");
-        
         lblTienda.requestFocus();
         this.usuario = user;
+        
+        this.departamento = dep;
+        System.out.println("ID:" + departamento.getIdDepartamento() + " Nombre:" + departamento.getNombre());
+        
         System.out.println("Id Usuario Login " + user.getIdUserLog());
         txtIdUserLogin.setText(String.valueOf(user.getIdUserLog()));
         this.setLocationRelativeTo(null);
@@ -213,7 +216,7 @@ public class TiendaView extends javax.swing.JFrame {
 
     private void rSButtonMetro3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro3ActionPerformed
         // PROVEEDORES
-        ProveedoresView pv = new ProveedoresView(usuario);
+        ProveedoresView pv = new ProveedoresView(usuario, departamento);
         pv.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_rSButtonMetro3ActionPerformed

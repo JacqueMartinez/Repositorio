@@ -7,6 +7,7 @@ package com.ortometh.viewMain;
 
 import com.ortometh.controller.ProductoController;
 import com.ortometh.controller.ProveedorController;
+import com.ortometh.model.Departamento;
 import com.ortometh.model.Events;
 import com.ortometh.model.UsuarioLogin;
 import java.awt.Color;
@@ -26,13 +27,14 @@ public class ProveedoresView extends javax.swing.JFrame {
     ProveedorController proveedorController = new ProveedorController();
     ProductoController productoController = new ProductoController();
     Events evento = new Events();
+    
     public static UsuarioLogin usuarioLog;
+    public static Departamento departamento;
 
     public ProveedoresView() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        proveedorController.fillProveedores(tableProveedores);
         txtusuarioID.setText(String.valueOf(1));
         txtproveedorID.setVisible(false);
         txtActions.setVisible(false);
@@ -43,16 +45,16 @@ public class ProveedoresView extends javax.swing.JFrame {
         txtNombre.requestFocus();
     }
 
-    public ProveedoresView(UsuarioLogin user) {
+    public ProveedoresView(UsuarioLogin user, Departamento dep) {
         initComponents();
-//        Image icon = new ImageIcon(getClass().getResource("../img/Ortomethlogo1.png")).getImage();
-//        setIconImage(icon);
-//        this.setTitle("Proveedores"); 
-        
+
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.usuarioLog = user;
-        proveedorController.fillProveedores(tableProveedores);
+        this.departamento = dep;
+        System.out.println("ID:" + departamento.getIdDepartamento() + " Nombre:" + departamento.getNombre());
+        
+        proveedorController.fillProveedores(tableProveedores, departamento.getIdDepartamento());
         productoController.fillCombotTipoProducto(cbxDepartamento);
         txtusuarioID.setText(String.valueOf(user.getIdUserLog()));
         txtproveedorID.setVisible(false);
@@ -453,7 +455,7 @@ public class ProveedoresView extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        TiendaView tv = new TiendaView(usuarioLog);
+        TiendaView tv = new TiendaView(usuarioLog, departamento);
         tv.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
@@ -473,7 +475,7 @@ public class ProveedoresView extends javax.swing.JFrame {
     }
     
     private void recargarTabla(){
-        proveedorController.reFillProveedores(tableProveedores);
+        proveedorController.reFillProveedores(tableProveedores, departamento.getIdDepartamento());
     }
 
     /**

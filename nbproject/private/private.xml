@@ -5,10 +5,12 @@
         <group>
             <file>file:/C:/Users/xfeyz/OneDrive/Documentos/Ortometh/src/com/ortometh/model/Usuario.java</file>
             <file>file:/C:/Users/xfeyz/OneDrive/Documentos/Ortometh/src/com/ortometh/controller/ProveedorController.java</file>
+            <file>file:/C:/Users/xfeyz/OneDrive/Documentos/Ortometh/src/com/ortometh/viewMain/LoginView.java</file>
             <file>file:/C:/Users/xfeyz/OneDrive/Documentos/Ortometh/src/com/ortometh/viewMain/ProductosCRUDInsertar.java</file>
             <file>file:/C:/Users/xfeyz/OneDrive/Documentos/Ortometh/src/com/ortometh/controller/Cliente_Controller.java</file>
             <file>file:/C:/Users/xfeyz/OneDrive/Documentos/Ortometh/src/com/ortometh/viewMain/ProveedoresView.java</file>
             <file>file:/C:/Users/xfeyz/OneDrive/Documentos/Ortometh/src/com/ortometh/viewMain/TiendaView.java</file>
+            <file>file:/C:/Users/xfeyz/OneDrive/Documentos/Ortometh/src/com/ortometh/Dao/UsuarioDaoImpl.java</file>
             <file>file:/C:/Users/xfeyz/OneDrive/Documentos/Ortometh/src/com/ortometh/Dao/ClienteDaoImplement.java</file>
             <file>file:/C:/Users/xfeyz/OneDrive/Documentos/Ortometh/src/com/ortometh/model/Proveedor.java</file>
             <file>file:/C:/Users/xfeyz/OneDrive/Documentos/Ortometh/src/com/ortometh/Dao/Conexion1.java</file>
