@@ -80,6 +80,9 @@ public class Categoria_ProductoController {
             model.addRow(columns);
         }
     }
+       public boolean eliminarProducto(int id_categoria,int id_usuario){
+        return categoriaDaoImpl.deleteCategoria(id_categoria, id_usuario);
+    }
 }
 
 

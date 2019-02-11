@@ -9,6 +9,7 @@ import com.ortometh.controller.ApartadosController;
 import com.ortometh.controller.ControllerReportes;
 import com.ortometh.controller.ProductoController;
 import com.ortometh.controller.ProveedorController;
+import com.ortometh.model.Departamento;
 import com.ortometh.model.UsuarioLogin;
 import java.awt.Image;
 
@@ -29,16 +30,17 @@ public class ReportesProductos extends javax.swing.JFrame {
     ProductoController controllerProducto = new ProductoController();
     ProveedorController proveedorController = new ProveedorController();
     public static UsuarioLogin usuario;
-
+      public static Departamento departamento;
     /**
      * Creates new form Reportes
      */
-    public ReportesProductos(UsuarioLogin user) {
+    public ReportesProductos(UsuarioLogin user,Departamento dep) {
         initComponents();
 //        Image icon = new ImageIcon(getClass().getResource("../img/Ortomethlogo1.png")).getImage();
 //        setIconImage(icon);
 //        this.setTitle("Reportes Productos"); 
-        
+        this.departamento = dep;
+        System.out.println("ID:" + departamento.getIdDepartamento() + " Nombre:" + departamento.getNombre());
         buttonGroup1.add(jRadioCategoria);
         buttonGroup1.add(jRadioProveedor);
         buttonGroup1.add(jRadioStockMax);
@@ -285,7 +287,7 @@ public class ReportesProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Reportes reportes = new Reportes(usuario);
+        Reportes reportes = new Reportes(usuario,departamento);
         reportes.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 

@@ -23,16 +23,18 @@ public class Venta {
     private String usuario;
     private Date fecha_umodificacion;
     private int id_usuario;
+    private int id_departamento;
 
     public Venta() {
     }
     
 
-    public Venta(String tipo_venta,int id_usuario,int id_cliente) {
+    public Venta(String tipo_venta,int id_usuario,int id_cliente,int id_departamento) {
 
         this.tipo_venta = tipo_venta;
         this.id_usuario = id_usuario;
         this.id_venta = id_cliente;
+        this.id_departamento = id_departamento;
         
     }
 
@@ -122,6 +124,14 @@ public class Venta {
 
     public void setId_usuario(int id_usuario) {
         this.id_usuario = id_usuario;
+    }
+
+    public int getId_departamento() {
+        return id_departamento;
+    }
+
+    public void setId_departamento(int id_departamento) {
+        this.id_departamento = id_departamento;
     }
     
 

@@ -15,6 +15,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public interface ProductoInterfaz {
     //Array de productos
-    public ArrayList<Producto> getProductos();
-    
+    public ArrayList<Producto> getProductosOrtopedia();
+    public ArrayList<Producto> getProductosOsteotesintesis();
 }

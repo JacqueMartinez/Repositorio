@@ -33,12 +33,12 @@ public class ProductoDaoImpl implements ProductoInterfaz {
 
     @Override
     /*OBTENER PRODUCTOS PARA LA VISTA DE BUSCAR PRODUCTOS*/
-    public ArrayList<Producto> getProductos() {
+    public ArrayList<Producto> getProductosOrtopedia() {
         ArrayList<Producto> listProductos = new ArrayList<>();
         try {
 
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select * from producto where stock > 0 and estado=1");
+            ResultSet rs = st.executeQuery("select * from producto where stock > 0 and estado=1 and id_tipo=1");
             while (rs.next()) {
                 Producto producto = new Producto();
                 producto.setClave_producto(rs.getString(2));
@@ -57,14 +57,37 @@ public class ProductoDaoImpl implements ProductoInterfaz {
         }
         return listProductos;
     }
-
-    
-    public ArrayList<Producto> getProductosInventario() {
+    public ArrayList<Producto> getProductosOsteotesintesis() {
         ArrayList<Producto> listProductos = new ArrayList<>();
         try {
 
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select * from producto where estado = 1");
+            ResultSet rs = st.executeQuery("select * from producto where stock > 0 and estado=1 and id_tipo=2");
+            while (rs.next()) {
+                Producto producto = new Producto();
+                producto.setClave_producto(rs.getString(2));
+                producto.setIdCategoria(rs.getInt(3));
+                producto.setIdTipo(rs.getInt(4));
+                producto.setIdProveedor(rs.getInt(5));
+                producto.setClave(rs.getInt(6));
+                producto.setMarca(rs.getString(7));
+                producto.setPrecio_venta(rs.getDouble(12));
+                producto.setDescripcion(rs.getString(8));
+                producto.setStock(rs.getInt(9));
+                listProductos.add(producto);
+            }
+        } catch (Exception e) {
+            System.out.println("SQL error" + e.getMessage());
+        }
+        return listProductos;
+    }
+    
+    public ArrayList<Producto> getProductosInventarioOrtopedia() {
+        ArrayList<Producto> listProductos = new ArrayList<>();
+        try {
+
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select * from producto where estado = 1 and id_tipo =1");
 
             while (rs.next()) {
                 Producto producto = new Producto();
@@ -86,7 +109,33 @@ public class ProductoDaoImpl implements ProductoInterfaz {
         }
         return listProductos;
     }
+    public ArrayList<Producto> getProductosInventarioOsteotesintesis() {
+        ArrayList<Producto> listProductos = new ArrayList<>();
+        try {
 
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select * from producto where estado = 1 and id_tipo =2");
+
+            while (rs.next()) {
+                Producto producto = new Producto();
+                producto.setClave_producto(rs.getString(2));
+                producto.setIdCategoria(rs.getInt(3));
+                producto.setIdTipo(rs.getInt(4));
+                producto.setIdProveedor(rs.getInt(5));
+                producto.setClave(rs.getInt(6));
+                producto.setMarca(rs.getString(7));
+                producto.setDescripcion(rs.getString(8));
+                producto.setStock(rs.getInt(9));
+                producto.setStock_min(rs.getInt(10));
+                producto.setPrecio_venta(rs.getDouble(12));
+                producto.setPrecio_compra(rs.getDouble(13));
+                listProductos.add(producto);
+            }
+        } catch (Exception e) {
+            System.out.println("SQL error" + e.getMessage());
+        }
+        return listProductos;
+    }
     public boolean insertar_producto(Producto newProducto) {
         boolean var = false;
         try (CallableStatement sta = cn.prepareCall("{Call insertarProducto (?,?,?,?,?,?,?,?,?,?,?)}")) {

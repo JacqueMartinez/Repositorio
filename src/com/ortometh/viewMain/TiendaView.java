@@ -199,7 +199,7 @@ public class TiendaView extends javax.swing.JFrame {
     private void rSButtonMetro6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro6ActionPerformed
         try {
             // TODO add your handling code here:
-            ClientesCRUD cd = new ClientesCRUD(usuario, "t");
+            ClientesCRUD cd = new ClientesCRUD(usuario, "t",departamento);
             cd.setVisible(true);
             this.setVisible(false);
         } catch (SQLException ex) {
@@ -209,7 +209,7 @@ public class TiendaView extends javax.swing.JFrame {
     }//GEN-LAST:event_rSButtonMetro6ActionPerformed
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
-        Venta b = new Venta(usuario);
+        Venta b = new Venta(usuario,departamento);
         b.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_rSButtonMetro1ActionPerformed
@@ -224,7 +224,7 @@ public class TiendaView extends javax.swing.JFrame {
     private void rSButtonMetro4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro4ActionPerformed
         try {
             // TODO add your handling code here:
-            ProductosCRUD pc = new ProductosCRUD(usuario);
+            ProductosCRUD pc = new ProductosCRUD(usuario,departamento);
             pc.setVisible(true);
             this.setVisible(false);
         } catch (SQLException ex) {
@@ -246,7 +246,7 @@ public class TiendaView extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void rSButtonMetro2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro2ActionPerformed
-        Reportes reportes = new Reportes(usuario);
+        Reportes reportes = new Reportes(usuario,departamento);
         reportes.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_rSButtonMetro2ActionPerformed

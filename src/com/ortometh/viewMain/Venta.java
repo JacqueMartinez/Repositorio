@@ -8,6 +8,7 @@ package com.ortometh.viewMain;
 import com.ortometh.Dao.VentaDaoImpl;
 import com.ortometh.controller.ProductoController;
 import com.ortometh.controller.VentaController;
+import com.ortometh.model.Departamento;
 import com.ortometh.model.Events;
 import com.ortometh.model.UsuarioLogin;
 import static com.ortometh.viewMain.BuscarProductoView.txtclave;
@@ -38,6 +39,7 @@ public class Venta extends javax.swing.JFrame {
 
     //variable de usuario
     public static UsuarioLogin usuario;
+    public static Departamento departamento;
     public static String tipo_venta = "Tienda";
     int id_venta;
     //contar productos
@@ -55,9 +57,10 @@ public class Venta extends javax.swing.JFrame {
     /**
      * Creates new form venta
      */
-    public Venta(UsuarioLogin user){
+    public Venta(UsuarioLogin user,Departamento dep){
         initComponents();
-        
+          this.departamento = dep;
+        System.out.println("ID:" + departamento.getIdDepartamento() + " Nombre:" + departamento.getNombre());
 
         //diseño de vista
         this.setLocationRelativeTo(null);
@@ -172,6 +175,7 @@ public class Venta extends javax.swing.JFrame {
         btnagregar2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         stock = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1054, 706));
@@ -446,6 +450,15 @@ public class Venta extends javax.swing.JFrame {
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 510, 180, 40));
         getContentPane().add(stock, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 550, 60, -1));
 
+        jButton5.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jButton5.setText("Modificar cantidad");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 450, 140, 30));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -456,7 +469,7 @@ public class Venta extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         BuscarProductoView bProductoView = null;
         try {
-            bProductoView = new BuscarProductoView(0);
+            bProductoView = new BuscarProductoView(0,departamento);
         } catch (SQLException ex) {
             Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -469,7 +482,7 @@ public class Venta extends javax.swing.JFrame {
         System.out.println("Opcion: " + confirm);
         if (confirm == 0) {
             venController.cancelar_venta(id_venta, usuario.getIdUserLog());
-            TiendaView tiView = new TiendaView(usuario);
+            TiendaView tiView = new TiendaView(usuario,departamento);
             tiView.setVisible(true);
             this.dispose();
 
@@ -490,7 +503,7 @@ public class Venta extends javax.swing.JFrame {
         /*No cerrar la ventana de Venta, ya que cambiaria el id*/
         ClientesCRUD cc = null;
         try {
-            cc = new ClientesCRUD(usuario, "v");
+            cc = new ClientesCRUD(usuario, "v",departamento);
         } catch (SQLException ex) {
             Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -502,7 +515,7 @@ public class Venta extends javax.swing.JFrame {
 
         ClientesCRUD cc = null;
         try {
-            cc = new ClientesCRUD(usuario, "v");
+            cc = new ClientesCRUD(usuario, "v",departamento);
         } catch (SQLException ex) {
             Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -569,7 +582,7 @@ public class Venta extends javax.swing.JFrame {
         int confirm = JOptionPane.showConfirmDialog(null, "¿Desea terminar la venta?", "Venta", JOptionPane.YES_NO_OPTION);
         System.out.println("Opcion: " + confirm);
         if (confirm == 0) {
-            Caja caja = new Caja(usuario, id_venta);
+            Caja caja = new Caja(usuario, id_venta,departamento);
             caja.TXRMONTOTOTAL.setText(String.valueOf(total_importe));
             caja.txtmonto.setText(String.valueOf(total_importe));
             caja.setVisible(true);
@@ -581,7 +594,7 @@ public class Venta extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         venController.cancelar_venta(id_venta, usuario.getIdUserLog());
-        TiendaView tv = new TiendaView(usuario);
+        TiendaView tv = new TiendaView(usuario,departamento);
         tv.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
@@ -678,7 +691,7 @@ public class Venta extends javax.swing.JFrame {
             if (confirm == 0) {
                 txtId_Cliente.setText("1");
                 id_cliente = Integer.parseInt(txtId_Cliente.getText());
-                System.out.println(venController.iniciar_venta(tipo_venta, usuario.getIdUserLog(), id_cliente));
+                System.out.println(venController.iniciar_venta(tipo_venta, usuario.getIdUserLog(), id_cliente,departamento.getIdDepartamento()));
                 try {
                     //SELECCIONAR EL ID DE LA VENTA
                     id_venta = venController.seleccionar_idVenta();
@@ -701,7 +714,7 @@ public class Venta extends javax.swing.JFrame {
             }
         } else {
             id_cliente = Integer.parseInt(txtId_Cliente.getText());
-            System.out.println(venController.iniciar_venta(tipo_venta, usuario.getIdUserLog(), id_cliente));
+            System.out.println(venController.iniciar_venta(tipo_venta, usuario.getIdUserLog(), id_cliente,departamento.getIdDepartamento()));
             try {
                 //SELECCIONAR EL ID DE LA VENTA
                 id_venta = venController.seleccionar_idVenta();
@@ -806,6 +819,53 @@ public class Venta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tablaProductosKeyPressed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        int fila = tablaProductos.getSelectedRow();
+        ResultSet rs2 = null;
+        id_productoMod = 0;
+        if(tablaProductos.getValueAt(fila, 2).toString().equals("")  || tablaProductos.getValueAt(fila, 0).toString().equals("")){
+            JOptionPane.showMessageDialog(null, "Hay campos vacios en la fila");
+        }else{
+
+            cantidadMod = Integer.parseInt(tablaProductos.getValueAt(fila, 2).toString());
+            clave_productoMod = tablaProductos.getValueAt(fila, 0).toString();
+
+            try {
+                rs2 = ventaDaoImpl.datos_producto(clave_productoMod);
+            } catch (SQLException ex) {
+                Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                while (rs2.next()) {
+                    try {
+                        id_productoMod = rs2.getInt("id_producto");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.err.println(cantidadMod);
+            System.err.println(id_productoMod);
+            System.err.println(cantidadMod);
+
+            try {
+                if (venController.cancelar_producto(id_venta, id_productoMod, cantidadMod)) {
+                    JOptionPane.showMessageDialog(null, "Se a actualizado la cantidad correctamente");
+                    venController.reFillProveedores(tablaProductos, id_venta, clave_productoMod);
+                    contar_piezas();//consulta
+                    importe_total();//consulta
+                    subtotal();
+                    descuento();//resta
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -879,6 +939,7 @@ public class Venta extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;

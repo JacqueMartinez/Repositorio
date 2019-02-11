@@ -32,10 +32,11 @@ public class VentaDaoImpl implements ventaInterfaz{
     //METODO PARA INICIAR VENTA AL ABRIR LA VISTA
     public String iniciar_venta(Venta newventa){
         String respuesta=null;
-        try (  CallableStatement sta=  cn.prepareCall("{Call crearVenta (?,?,?)}")){
+        try (  CallableStatement sta=  cn.prepareCall("{Call crearVenta (?,?,?,?)}")){
               sta.setInt(1, newventa.getId_cliente());
               sta.setString(2 ,newventa.getTipo_venta());
               sta.setInt(3, newventa.getId_usuario());
+              sta.setInt(4, newventa.getId_departamento());
               sta.executeQuery();
               respuesta="se a agregado";
         } catch (SQLException e) {

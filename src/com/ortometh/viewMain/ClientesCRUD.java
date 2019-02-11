@@ -7,6 +7,7 @@ package com.ortometh.viewMain;
 
 import com.ortometh.controller.Cliente_Controller;
 import com.ortometh.controller.ControllerReportes;
+import com.ortometh.model.Departamento;
 import com.ortometh.model.UsuarioLogin;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -25,16 +26,17 @@ public class ClientesCRUD extends javax.swing.JFrame {
     Cliente_Controller controllerCliente = new Cliente_Controller();
     public static UsuarioLogin usuario;
     public String formularioPadre;
-
+    public static Departamento departamento;
     /**
      * Creates new form ProductosCRUD
      */
-    public ClientesCRUD(UsuarioLogin user, String padre) throws SQLException {
+    public ClientesCRUD(UsuarioLogin user, String padre,Departamento dep) throws SQLException {
         initComponents();
 //        Image icon = new ImageIcon(getClass().getResource("../img/Ortomethlogo1.png")).getImage();
 //        setIconImage(icon);
 //        this.setTitle("Clientes");
-
+        this.departamento = dep;
+        System.out.println("ID:" + departamento.getIdDepartamento() + " Nombre:" + departamento.getNombre());
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.usuario = user;
@@ -63,6 +65,7 @@ public class ClientesCRUD extends javax.swing.JFrame {
             btnReporteFisico.setVisible(false);
             btnReporteMoral.setVisible(false);
             btnReportePorCompras.setVisible(false);
+            btnAceptar.setVisible(true);
         }
     }
 
@@ -99,6 +102,7 @@ public class ClientesCRUD extends javax.swing.JFrame {
         btnReporteFisico = new com.ortometh.RSbuttom.RSButtonMetro();
         btnReporteMoral = new com.ortometh.RSbuttom.RSButtonMetro();
         btnReportePorCompras = new com.ortometh.RSbuttom.RSButtonMetro();
+        btnAceptar = new com.ortometh.RSbuttom.RSButtonMetro();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setFocusCycleRoot(false);
@@ -262,6 +266,17 @@ public class ClientesCRUD extends javax.swing.JFrame {
             }
         });
 
+        btnAceptar.setBackground(new java.awt.Color(231, 50, 116));
+        btnAceptar.setText("Aceptar");
+        btnAceptar.setColorNormal(new java.awt.Color(231, 50, 116));
+        btnAceptar.setColorPressed(new java.awt.Color(38, 86, 186));
+        btnAceptar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -285,6 +300,8 @@ public class ClientesCRUD extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -342,7 +359,8 @@ public class ClientesCRUD extends javax.swing.JFrame {
                         .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnReporteFisico, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnReporteMoral, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnReportePorCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnReportePorCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addComponent(jLabel2))
         );
@@ -465,14 +483,14 @@ public class ClientesCRUD extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         if (formularioPadre.equals("t")) {
-            TiendaView tv = new TiendaView(usuario);
+            TiendaView tv = new TiendaView(usuario,departamento);
             tv.setVisible(true);
         } else if (formularioPadre.equals("v")) {
             this.setVisible(true);
         } else if (formularioPadre.equals("vi")) {
             this.setVisible(true);
         } else if (formularioPadre.equals("r")) {
-            Reportes r = new Reportes(usuario);
+            Reportes r = new Reportes(usuario,departamento);
             r.setVisible(true);
             this.setVisible(false);
         }
@@ -560,6 +578,29 @@ public class ClientesCRUD extends javax.swing.JFrame {
             controllerReportes.reporteVentaCliente(Integer.parseInt(txtId_Cliente.getText()));
         }
     }//GEN-LAST:event_btnReportePorComprasActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        if (formularioPadre.equals("v")) {
+
+            int fila = jTable1.getSelectedRow();
+            if (fila < 0) {
+                JOptionPane.showMessageDialog(null, "Seleccione un cliente");
+            } else {
+                if (cambio.getText().equals("") || cambio.getText().equals("2")) {
+                    String razon_social = jTable1.getValueAt(fila, 1).toString().toUpperCase();
+                    Venta.txtNombreCliente.setText(razon_social);
+                } else {
+                    String nombre = jTable1.getValueAt(fila, 1).toString().toUpperCase();
+                    String apellido_paterno = jTable1.getValueAt(fila, 2).toString().toUpperCase();
+                    String apellido_materno = jTable1.getValueAt(fila, 3).toString().toUpperCase();
+                    Venta.txtNombreCliente.setText(nombre + " " + apellido_paterno + " " + apellido_materno);
+                }
+
+                this.setVisible(false);
+            }
+        }
+
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1108,6 +1149,7 @@ public class ClientesCRUD extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.ortometh.RSbuttom.RSButtonMetro btnAceptar;
     private com.ortometh.RSbuttom.RSButtonMetro btnEliminar;
     private com.ortometh.RSbuttom.RSButtonMetro btnModificar;
     private com.ortometh.RSbuttom.RSButtonMetro btnNuevo;

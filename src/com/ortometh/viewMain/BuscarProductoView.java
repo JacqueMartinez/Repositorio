@@ -7,6 +7,7 @@ package com.ortometh.viewMain;
 
 import com.ortometh.Dao.VentaDaoImpl;
 import com.ortometh.controller.ProductoController;
+import com.ortometh.model.Departamento;
 import static com.ortometh.viewMain.Venta.usuario;
 import java.awt.Color;
 import java.awt.Image;
@@ -30,15 +31,17 @@ public class BuscarProductoView extends javax.swing.JFrame {
     ProductoController  productoController = new  ProductoController();
     VentaDaoImpl ventaDaoImpl = new VentaDaoImpl();
     int d = 0;
+    public static Departamento departamento;
     /**
      * Creates new form buscarProductoView
      */
-    public BuscarProductoView(int d) throws SQLException, SQLException {
+    public BuscarProductoView(int d,Departamento dep) throws SQLException, SQLException {
         initComponents();
 //        Image icon = new ImageIcon(getClass().getResource("../img/Ortomethlogo1.png")).getImage();
 //        setIconImage(icon);
 //        this.setTitle("Buscar Producto"); 
-        
+         this.departamento = dep;
+        System.out.println("ID:" + departamento.getIdDepartamento() + " Nombre:" + departamento.getNombre());
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         txtclave.setVisible(false);
@@ -46,7 +49,12 @@ public class BuscarProductoView extends javax.swing.JFrame {
         //Diseño tabla
         jtable.getTableHeader().setReorderingAllowed(false);
         //Llenar tabla de productos
-        productoController.fillProducto(jtable);
+        if(departamento.getIdDepartamento()==1){
+            productoController.fillProductoOrtopedia(jtable);
+        }else{
+            productoController.fillProductoOsteotesintesis(jtable);
+        }
+        
         productoController.fillComboProveedor(comboProveedor);
         this.d = d;
     }
@@ -63,7 +71,11 @@ public class BuscarProductoView extends javax.swing.JFrame {
         //Diseño tabla
         jtable.getTableHeader().setReorderingAllowed(false);
         //Llenar tabla de productos
-        productoController.fillProducto(jtable);
+        if(departamento.getIdDepartamento()==1){
+            productoController.fillProductoOrtopedia(jtable);
+        }else{
+            productoController.fillProductoOsteotesintesis(jtable);
+        }
         productoController.fillComboProveedor(comboProveedor);
     }
    
@@ -88,6 +100,7 @@ public class BuscarProductoView extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtstock = new javax.swing.JTextField();
+        rSButtonMetro4 = new com.ortometh.RSbuttom.RSButtonMetro();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1054, 706));
@@ -181,30 +194,45 @@ public class BuscarProductoView extends javax.swing.JFrame {
             }
         });
 
+        rSButtonMetro4.setBackground(new java.awt.Color(231, 50, 116));
+        rSButtonMetro4.setText("Aceptar");
+        rSButtonMetro4.setColorNormal(new java.awt.Color(231, 50, 116));
+        rSButtonMetro4.setColorPressed(new java.awt.Color(38, 86, 186));
+        rSButtonMetro4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rSButtonMetro4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonMetro4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(comboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rSButtonMetro3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1020, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtclave, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(txtstock, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(txtstock, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(673, 673, 673)
+                        .addComponent(rSButtonMetro4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, 0)
+                            .addComponent(comboProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(1, 1, 1)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(rSButtonMetro3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1020, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -223,10 +251,15 @@ public class BuscarProductoView extends javax.swing.JFrame {
                         .addComponent(btnRecargar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtclave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtstock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtclave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtstock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rSButtonMetro4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jLabel2))
         );
@@ -323,7 +356,12 @@ public class BuscarProductoView extends javax.swing.JFrame {
     private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
         txtclave.setText("");
         try {
-            productoController.RefillProducto(jtable);
+            if(departamento.getIdDepartamento()==1){
+             productoController.RefillProductoOrtopedia(jtable);
+        }else{
+             productoController.RefillProductoOsteotesintesis(jtable);
+        }
+           
         } catch (SQLException ex) {
             Logger.getLogger(BuscarProductoView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -339,6 +377,22 @@ public class BuscarProductoView extends javax.swing.JFrame {
     private void txtstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtstockActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtstockActionPerformed
+
+    private void rSButtonMetro4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro4ActionPerformed
+        if (d == 0) {
+
+            Venta.txtCodigoProducto.setText(txtclave.getText());
+            Venta.txtId_producto1.setText(String.valueOf(Obtener_id_producto()));
+            Venta.stock.setText(String.valueOf(txtstock.getText()));
+            this.setVisible(false);
+
+        } else {
+
+            CrearApartado.txtProducto.setText(txtclave.getText());
+            this.setVisible(false);
+
+        }
+    }//GEN-LAST:event_rSButtonMetro4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -452,6 +506,7 @@ public class BuscarProductoView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtable;
     private com.ortometh.RSbuttom.RSButtonMetro rSButtonMetro3;
+    private com.ortometh.RSbuttom.RSButtonMetro rSButtonMetro4;
     private javax.swing.JTextField txtCodigo;
     public static javax.swing.JTextField txtclave;
     public static javax.swing.JTextField txtstock;

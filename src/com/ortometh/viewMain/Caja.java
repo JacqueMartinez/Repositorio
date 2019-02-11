@@ -7,6 +7,7 @@ package com.ortometh.viewMain;
 
 import com.ortometh.controller.ControllerReportes;
 import com.ortometh.controller.VentaController;
+import com.ortometh.model.Departamento;
 import com.ortometh.model.Events;
 import com.ortometh.model.UsuarioLogin;
 import java.awt.Image;
@@ -33,12 +34,12 @@ public class Caja extends javax.swing.JFrame implements KeyListener{
     double MontoTotal;
     double pago;
     double montoCubierto;
-   
+     public static Departamento departamento;
 
     /**
      * Creates new form Caja
      */
-    public Caja(UsuarioLogin user, int id_venta) {
+    public Caja(UsuarioLogin user, int id_venta,Departamento dep) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -51,7 +52,8 @@ public class Caja extends javax.swing.JFrame implements KeyListener{
         txtidventa.setVisible(false);
         txtTipoPago.setEnabled(false);
         this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
-        
+        this.departamento = dep;
+        System.out.println("ID:" + departamento.getIdDepartamento() + " Nombre:" + departamento.getNombre());
 //        Image icon = new ImageIcon(getClass().getResource("../img/Ortomethlogo1.png")).getImage();
 //        setIconImage(icon);
 //        this.setTitle("Caja");  
@@ -330,7 +332,7 @@ public class Caja extends javax.swing.JFrame implements KeyListener{
                 System.out.println("Opcion:" + confirm);
                 if( confirm ==0){
                         System.out.println(venController.finalizar_venta_efectivo(id_venta, txtTipoPago.getText(), usuario.getIdUserLog()));
-                        TiendaView tv = new TiendaView(usuario);
+                        TiendaView tv = new TiendaView(usuario,departamento);
                         tv.setVisible(true);
                         this.dispose();
                         ControllerReportes controllerReportes = new ControllerReportes();

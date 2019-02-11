@@ -39,12 +39,13 @@ public class VentaController {
 //        }
         };
     //INICIAR VENTA
-    public String iniciar_venta(String tipo_venta,int id_usuario,int id_cliente) {
-        Venta newventa = new Venta( tipo_venta, id_usuario,id_cliente);
+    public String iniciar_venta(String tipo_venta,int id_usuario,int id_cliente,int id_departamento) {
+        Venta newventa = new Venta( tipo_venta, id_usuario,id_cliente,id_departamento);
         String respuesta = null;
         newventa.setTipo_venta(tipo_venta);
         newventa.setId_usuario(id_usuario);
         newventa.setId_cliente(id_cliente);
+        newventa.setId_departamento(id_departamento);
         respuesta = ventaTiendaDaoImpl.iniciar_venta(newventa);
         return respuesta;
     }

@@ -34,7 +34,7 @@ public class ProductoController {
         }
     };
     /*MOSTRAR PRODUCTOS EN EL CRUD DE PRODUCTOS */ 
-    public void fillProductoInventario(JTable jProductos) throws SQLException{
+    public void fillProductoInventarioOrtopedia(JTable jProductos) throws SQLException{
         jProductos.setModel(tModel);
         TableColumnModel columnModel = jProductos.getColumnModel();
         tModel.addColumn("CODIGO");
@@ -59,7 +59,51 @@ public class ProductoController {
         columnModel.getColumn(8).setPreferredWidth(120);
         
         Object[] columns = new Object[11]; 
-        ArrayList <Producto> listProductos = productoVentaDaoImpl.getProductosInventario();
+        ArrayList <Producto> listProductos = productoVentaDaoImpl.getProductosInventarioOrtopedia();
+        for (Producto product : listProductos) {
+            int categoria = product.getIdCategoria();
+            int tipo = product.getIdTipo();
+            int proveedor = product.getIdProveedor();
+            columns[0]= product.getClave_producto();
+            columns[1] = productoVentaDaoImpl.seleccionar_nombre_categoria(categoria);
+            columns[2] = productoVentaDaoImpl.seleccionar_nombre_tipo(tipo);
+            columns[3] = productoVentaDaoImpl.seleccionar_nombre_proveedor(proveedor);
+            columns[4] = product.getClave();
+            columns[5] = product.getMarca();
+            columns[6] = product.getDescripcion();
+            columns[7] = product.getStock();
+            columns[8] = product.getStock_min();
+            columns[9] = product.getPrecio_venta();
+            columns[10] = product.getPrecio_compra();
+            tModel.addRow(columns);
+        } 
+    }
+    public void fillProductoInventarioOsteotesintesis(JTable jProductos) throws SQLException{
+        jProductos.setModel(tModel);
+        TableColumnModel columnModel = jProductos.getColumnModel();
+        tModel.addColumn("CODIGO");
+        tModel.addColumn("CATEGORIA");
+        tModel.addColumn("TIPO");
+        tModel.addColumn("PROVEEDOR");
+        tModel.addColumn("CLAVE");
+        tModel.addColumn("MARCA");
+        tModel.addColumn("DESCRIPCION");
+        tModel.addColumn("STOCK ACTUAL");
+        tModel.addColumn("STOCK MINIMO");
+        tModel.addColumn("VENTA");
+        tModel.addColumn("COMPRA");
+        columnModel.getColumn(0).setPreferredWidth(100);
+        columnModel.getColumn(1).setPreferredWidth(150);
+        columnModel.getColumn(2).setPreferredWidth(150);
+        columnModel.getColumn(3).setPreferredWidth(150);
+        columnModel.getColumn(4).setPreferredWidth(100);
+        columnModel.getColumn(5).setPreferredWidth(100);
+        columnModel.getColumn(6).setPreferredWidth(250);
+        columnModel.getColumn(7).setPreferredWidth(120);
+        columnModel.getColumn(8).setPreferredWidth(120);
+        
+        Object[] columns = new Object[11]; 
+        ArrayList <Producto> listProductos = productoVentaDaoImpl.getProductosInventarioOsteotesintesis();
         for (Producto product : listProductos) {
             int categoria = product.getIdCategoria();
             int tipo = product.getIdTipo();
@@ -83,13 +127,38 @@ public class ProductoController {
         return productoVentaDaoImpl.deleteProveedor(clave_producto);  
     }
     /*RECARGAR PRODUCTOS PARA MOSTRAR EN EL CRUD DE PRODUCTOS*/
-    public void refillProducto(JTable jProductos) throws SQLException{
+    public void refillProductoOrtopedia(JTable jProductos) throws SQLException{
         jProductos.setModel(tModel);
         tModel.setRowCount(0);
         
  
          Object[] columns = new Object[11]; 
-        ArrayList <Producto> listProductos = productoVentaDaoImpl.getProductosInventario();
+        ArrayList <Producto> listProductos = productoVentaDaoImpl.getProductosInventarioOrtopedia();
+        for (Producto product : listProductos) {
+            int categoria = product.getIdCategoria();
+            int tipo = product.getIdTipo();
+            int proveedor = product.getIdProveedor();
+            columns[0]= product.getClave_producto();
+            columns[1] = productoVentaDaoImpl.seleccionar_nombre_categoria(categoria);
+            columns[2] = productoVentaDaoImpl.seleccionar_nombre_tipo(tipo);
+            columns[3] = productoVentaDaoImpl.seleccionar_nombre_proveedor(proveedor);
+            columns[4] = product.getClave();
+            columns[5] = product.getMarca();
+            columns[6] = product.getDescripcion();
+            columns[7] = product.getStock();
+            columns[8] = product.getStock_min();
+            columns[9] = product.getPrecio_venta();
+            columns[10] = product.getPrecio_compra();
+            tModel.addRow(columns);
+        } 
+    }
+    public void refillProductoOsteotesintesis(JTable jProductos) throws SQLException{
+        jProductos.setModel(tModel);
+        tModel.setRowCount(0);
+        
+ 
+         Object[] columns = new Object[11]; 
+        ArrayList <Producto> listProductos = productoVentaDaoImpl.getProductosInventarioOsteotesintesis();
         for (Producto product : listProductos) {
             int categoria = product.getIdCategoria();
             int tipo = product.getIdTipo();
@@ -294,7 +363,7 @@ public class ProductoController {
         return var;
     }
     /*MOSTRAR PRODUCTOS EN LA TABLA DE LA VISTA BUSCAR PRODUCTO*/
-    public void fillProducto(JTable jProductos) throws SQLException{  
+    public void fillProductoOrtopedia(JTable jProductos) throws SQLException{  
         jProductos.setModel(tModel);
         tModel.addColumn("CÓDIGO");
         tModel.addColumn("CATEGORIA");
@@ -306,7 +375,7 @@ public class ProductoController {
         tModel.addColumn("DESCRIPCIÓN");
         tModel.addColumn("STOCK ACTUAL");
         Object[] columns = new Object[9]; 
-        ArrayList <Producto> listProductos = productoVentaDaoImpl.getProductos();
+        ArrayList <Producto> listProductos = productoVentaDaoImpl.getProductosOrtopedia();
         for (Producto product : listProductos) {
             int categoria = product.getIdCategoria();
             int tipo = product.getIdTipo();
@@ -323,12 +392,63 @@ public class ProductoController {
             tModel.addRow(columns);    
         } 
     }
-    public void RefillProducto(JTable jProductos) throws SQLException{  
+    public void fillProductoOsteotesintesis(JTable jProductos) throws SQLException{  
+        jProductos.setModel(tModel);
+        tModel.addColumn("CÓDIGO");
+        tModel.addColumn("CATEGORIA");
+        tModel.addColumn("TIPO");
+        tModel.addColumn("PROVEEDOR"); 
+        tModel.addColumn("CLAVE");
+        tModel.addColumn("MARCA");
+        tModel.addColumn("PRECÍO");
+        tModel.addColumn("DESCRIPCIÓN");
+        tModel.addColumn("STOCK ACTUAL");
+        Object[] columns = new Object[9]; 
+        ArrayList <Producto> listProductos = productoVentaDaoImpl.getProductosOsteotesintesis();
+        for (Producto product : listProductos) {
+            int categoria = product.getIdCategoria();
+            int tipo = product.getIdTipo();
+            int proveedor = product.getIdProveedor();
+            columns[0] = product.getClave_producto();
+            columns[1] = productoVentaDaoImpl.seleccionar_nombre_categoria(categoria);
+            columns[2] = productoVentaDaoImpl.seleccionar_nombre_tipo(tipo);
+            columns[3] = productoVentaDaoImpl.seleccionar_nombre_proveedor(proveedor);
+            columns[4] = product.getClave();
+            columns[5] = product.getMarca();
+            columns[6] = product.getPrecio_venta();
+            columns[7] = product.getDescripcion();
+            columns[8] = product.getStock();
+            tModel.addRow(columns);    
+        } 
+    }
+    public void RefillProductoOrtopedia(JTable jProductos) throws SQLException{  
         jProductos.setModel(tModel);
         tModel.setRowCount(0);
         
         Object[] columns = new Object[9]; 
-        ArrayList <Producto> listProductos = productoVentaDaoImpl.getProductos();
+        ArrayList <Producto> listProductos = productoVentaDaoImpl.getProductosOrtopedia();
+        for (Producto product : listProductos) {
+            int categoria = product.getIdCategoria();
+            int tipo = product.getIdTipo();
+            int proveedor = product.getIdProveedor();
+            columns[0] = product.getClave_producto();
+            columns[1] = productoVentaDaoImpl.seleccionar_nombre_categoria(categoria);
+            columns[2] = productoVentaDaoImpl.seleccionar_nombre_tipo(tipo);
+            columns[3] = productoVentaDaoImpl.seleccionar_nombre_proveedor(proveedor);
+            columns[4] = product.getClave();
+            columns[5] = product.getMarca();
+            columns[6] = product.getPrecio_venta();
+            columns[7] = product.getDescripcion();
+            columns[8] = product.getStock();
+            tModel.addRow(columns);    
+        } 
+    }
+    public void RefillProductoOsteotesintesis(JTable jProductos) throws SQLException{  
+        jProductos.setModel(tModel);
+        tModel.setRowCount(0);
+        
+        Object[] columns = new Object[9]; 
+        ArrayList <Producto> listProductos = productoVentaDaoImpl.getProductosOsteotesintesis();
         for (Producto product : listProductos) {
             int categoria = product.getIdCategoria();
             int tipo = product.getIdTipo();

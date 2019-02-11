@@ -6,6 +6,7 @@
 package com.ortometh.viewMain;
 
 import com.ortometh.controller.ProductoController;
+import com.ortometh.model.Departamento;
 import com.ortometh.model.UsuarioLogin;
 import java.awt.Color;
 import java.awt.Image;
@@ -24,13 +25,14 @@ public class ProductosCRUD extends javax.swing.JFrame {
 
     ProductoController productoController = new ProductoController();
     public static UsuarioLogin usuario;
-
-    public ProductosCRUD(UsuarioLogin user) throws SQLException {
+    public static Departamento departamento;
+    public ProductosCRUD(UsuarioLogin user,Departamento dep) throws SQLException {
         initComponents();
 //        Image icon = new ImageIcon(getClass().getResource("../img/Ortomethlogo1.png")).getImage();
 //        setIconImage(icon);
 //        this.setTitle("Productos"); 
-        
+        this.departamento = dep;
+        System.out.println("ID:" + departamento.getIdDepartamento() + " Nombre:" + departamento.getNombre());
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         jTable1.getTableHeader().setReorderingAllowed(false);
@@ -38,7 +40,12 @@ public class ProductosCRUD extends javax.swing.JFrame {
         System.out.println("Id Usuario Login " + user.getIdUserLog());
         txtId_usuario.setText(String.valueOf(usuario.getIdUserLog()));
         //Mostrar datos de la tabla
-        productoController.fillProductoInventario(jTable1);
+        if(departamento.getIdDepartamento()==1){
+            productoController.fillProductoInventarioOrtopedia(jTable1);
+        }else{
+            productoController.fillProductoInventarioOsteotesintesis(jTable1);
+        }
+        
         // Ocultar txtField
         txtId_producto.setText("");
         txtId_usuario.setVisible(false);
@@ -151,7 +158,7 @@ public class ProductosCRUD extends javax.swing.JFrame {
         });
         getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 560, 90, 20));
 
-        ComboFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filtro", "Categoria", "Tipo", "Proveedor" }));
+        ComboFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Filtro", "Categoria", "Proveedor" }));
         ComboFiltro.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 ComboFiltroItemStateChanged(evt);
@@ -215,7 +222,7 @@ public class ProductosCRUD extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        ProductosCRUDInsertar cRUDInsertar = new ProductosCRUDInsertar(usuario);
+        ProductosCRUDInsertar cRUDInsertar = new ProductosCRUDInsertar(usuario,departamento);
         cRUDInsertar.setVisible(true);
         this.setVisible(false);
 
@@ -239,7 +246,12 @@ public class ProductosCRUD extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "No se a podido eliminar", null, JOptionPane.INFORMATION_MESSAGE);
                     }
                     try {
-                        productoController.refillProducto(jTable1);
+                        if(departamento.getIdDepartamento()==1){
+                            productoController.refillProductoOrtopedia(jTable1);
+                        }else{
+                            productoController.refillProductoOsteotesintesis(jTable1);
+                        }
+                        
                     } catch (SQLException ex) {
                         Logger.getLogger(ProductosCRUD.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -257,7 +269,7 @@ public class ProductosCRUD extends javax.swing.JFrame {
             if (txtId_producto.getText().equals("")) {
                  JOptionPane.showMessageDialog(null, "Seleccione un producto", "Advertencia", JOptionPane.WARNING_MESSAGE);
             } else {
-                ProductosCRUDIModificar productosCRUDIModificar = new ProductosCRUDIModificar(usuario);
+                ProductosCRUDIModificar productosCRUDIModificar = new ProductosCRUDIModificar(usuario,departamento);
                 productosCRUDIModificar.setVisible(true);
                 this.setVisible(false);
                 //Obtener valores de la tabla
@@ -298,7 +310,7 @@ public class ProductosCRUD extends javax.swing.JFrame {
         if (ComboFiltro.getSelectedIndex() == 0 || comboFiltro2.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un filtro de busqueda", "Advertencia", JOptionPane.WARNING_MESSAGE);
         } else {
-            if (ComboFiltro.getSelectedIndex() == 3) {
+            if (ComboFiltro.getSelectedIndex() == 2) {
                 String prov = comboFiltro2.getSelectedItem().toString();
                 int id_proveedor = 0;
                 try {
@@ -329,20 +341,20 @@ public class ProductosCRUD extends javax.swing.JFrame {
 
             }
             //tipo
-            if (ComboFiltro.getSelectedIndex() == 2) {
-                String tipo = comboFiltro2.getSelectedItem().toString();
-                int id_tipo = 0;
-                try {
-                    id_tipo = productoController.Id_tipo(tipo);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ProductosCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    productoController.filtrarProductoTipo(jTable1, id_tipo);
-                } catch (SQLException ex) {
-                    Logger.getLogger(ProductosCRUD.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+//            if (ComboFiltro.getSelectedIndex() == 2) {
+//                String tipo = comboFiltro2.getSelectedItem().toString();
+//                int id_tipo = 0;
+//                try {
+//                    id_tipo = productoController.Id_tipo(tipo);
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(ProductosCRUD.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                try {
+//                    productoController.filtrarProductoTipo(jTable1, id_tipo);
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(ProductosCRUD.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
 
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -350,7 +362,12 @@ public class ProductosCRUD extends javax.swing.JFrame {
     private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
         txtId_producto.setText("");
         try {
-            productoController.refillProducto(jTable1);
+            if(departamento.getIdDepartamento()==1){
+                productoController.refillProductoOrtopedia(jTable1);
+            }else{
+                productoController.refillProductoOsteotesintesis(jTable1);
+            }
+           
             if (comboFiltro2.getSelectedIndex() != 0 && ComboFiltro.getSelectedIndex() != 0) {
                 comboFiltro2.setSelectedIndex(0);
                 ComboFiltro.setSelectedIndex(0);
@@ -380,7 +397,7 @@ public class ProductosCRUD extends javax.swing.JFrame {
     }//GEN-LAST:event_ComboFiltroItemStateChanged
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        TiendaView tv = new TiendaView(usuario);
+        TiendaView tv = new TiendaView(usuario,departamento);
         tv.setVisible(true);
     }//GEN-LAST:event_formWindowClosing
 
@@ -389,7 +406,7 @@ public class ProductosCRUD extends javax.swing.JFrame {
     }//GEN-LAST:event_txtId_productoActionPerformed
 
     private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
-        CategoriasInsertar categoriasInsertar = new CategoriasInsertar(usuario);
+        CategoriasInsertar categoriasInsertar = new CategoriasInsertar(usuario,departamento);
         categoriasInsertar.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnBuscar1ActionPerformed

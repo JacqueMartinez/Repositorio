@@ -6,8 +6,10 @@
 package com.ortometh.viewMain;
 
 import com.ortometh.controller.Categoria_ProductoController;
+import com.ortometh.model.Departamento;
 import com.ortometh.model.Events;
 import com.ortometh.model.UsuarioLogin;
+import static com.ortometh.viewMain.ProveedoresView.departamento;
 
 
 import java.sql.SQLException;
@@ -23,12 +25,15 @@ import javax.swing.JOptionPane;
 public class CategoriasInsertar extends javax.swing.JFrame {
      Events evento = new Events();
      public static UsuarioLogin usuario;
+      public static Departamento departamento;
      Categoria_ProductoController categoria_ProductoController= new Categoria_ProductoController();
     /**
      * Creates new form ProductosCRUD
      */
-    public CategoriasInsertar(UsuarioLogin user) {
+    public CategoriasInsertar(UsuarioLogin user,Departamento dep) {
         initComponents();
+        this.departamento = dep;
+        System.out.println("ID:" + departamento.getIdDepartamento() + " Nombre:" + departamento.getNombre());
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         tableCategorias.getTableHeader().setReorderingAllowed(false);
@@ -65,6 +70,7 @@ public class CategoriasInsertar extends javax.swing.JFrame {
         txtusuarioID = new javax.swing.JTextField();
         txtIdCategoria = new javax.swing.JTextField();
         txtActions = new javax.swing.JTextField();
+        btneliminar = new com.ortometh.RSbuttom.RSButtonMetro();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -129,6 +135,17 @@ public class CategoriasInsertar extends javax.swing.JFrame {
         txtActions.setEditable(false);
         txtActions.setBackground(new java.awt.Color(255, 255, 255));
 
+        btneliminar.setBackground(new java.awt.Color(231, 50, 116));
+        btneliminar.setText("Eliminar");
+        btneliminar.setColorNormal(new java.awt.Color(231, 50, 116));
+        btneliminar.setColorPressed(new java.awt.Color(38, 86, 186));
+        btneliminar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btneliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,12 +153,10 @@ public class CategoriasInsertar extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(txtusuarioID, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(273, 273, 273))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -153,8 +168,9 @@ public class CategoriasInsertar extends javax.swing.JFrame {
                             .addGap(302, 302, 302)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(14, Short.MAX_VALUE))
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,13 +185,15 @@ public class CategoriasInsertar extends javax.swing.JFrame {
                     .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtIdCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtActions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)))
+                        .addComponent(txtActions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtusuarioID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,7 +206,7 @@ public class CategoriasInsertar extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         ProductosCRUD cRUD = null;
         try {
-            cRUD = new ProductosCRUD(usuario);
+            cRUD = new ProductosCRUD(usuario,departamento);
         } catch (SQLException ex) {
             Logger.getLogger(CategoriasInsertar.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -247,6 +265,30 @@ public class CategoriasInsertar extends javax.swing.JFrame {
         btnGuardar.setVisible(true);
         btnNuevo.setVisible(true);
     }//GEN-LAST:event_tableCategoriasMouseClicked
+
+    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
+        int fila = tableCategorias.getSelectedRow();
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione una categoria", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            if (txtIdCategoria.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Seleccione un producto", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            } else {
+                int confirm = JOptionPane.showConfirmDialog(null, "¿Confirma la eliminación?", "Eliminar categoria", JOptionPane.YES_NO_OPTION);
+                System.out.println("Opcion: " + confirm);
+                if (confirm == 0) {
+                    Integer categoria_producto = Integer.parseInt(txtIdCategoria.getText());
+                    if (categoria_ProductoController.eliminarProducto(categoria_producto, usuario.getIdUserLog())== true) {
+                        JOptionPane.showMessageDialog(null, "Producto eliminado", null, JOptionPane.INFORMATION_MESSAGE);
+                        txtNombre.setText("");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se a podido eliminar", null, JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    categoria_ProductoController.refillCategorias(tableCategorias);
+                }
+            }
+        }
+    }//GEN-LAST:event_btneliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,6 +391,7 @@ public class CategoriasInsertar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.ortometh.RSbuttom.RSButtonMetro btnGuardar;
     private com.ortometh.RSbuttom.RSButtonMetro btnNuevo;
+    private com.ortometh.RSbuttom.RSButtonMetro btneliminar;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;

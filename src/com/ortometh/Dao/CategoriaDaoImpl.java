@@ -87,6 +87,24 @@ public class CategoriaDaoImpl implements CategoriaDao{
         }
         return serverAnswer;
     }
-    
+     public boolean deleteCategoria(int  id_categoria,int id_usuario) {
+        boolean temp = false;
+        try {
+            CallableStatement sta = cn.prepareCall("{Call eliminarCategoriaProducto (?,?)}");
+            sta.setInt(1, id_categoria);
+            sta.setInt(2, id_usuario);
+            
+
+            int numAffectedRows = sta.executeUpdate();
+
+            if (numAffectedRows > 0) {
+                 temp = true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+             temp = false;
+        }
+        return temp;
+    }
     
 }
