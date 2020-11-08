@@ -274,6 +274,11 @@ public class Venta extends javax.swing.JFrame {
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/ortometh/img/icons8-búsqueda-40.png"))); // NOI18N
         jButton3.setText("Buscar Producto");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -391,7 +396,11 @@ public class Venta extends javax.swing.JFrame {
         txtIdcliente.setMinimumSize(new java.awt.Dimension(0, 18));
         getContentPane().add(txtIdcliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        txtCantidad.setText("1");
+        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadActionPerformed(evt);
+            }
+        });
         txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCantidadKeyReleased(evt);
@@ -618,16 +627,16 @@ public class Venta extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Hay campos vacíos");
             } 
             else 
-            {
-                int stock_actual=0;
-             int stock_minimo=0;
+            {       //VARIABLES PARA GUARDAR DATOS DEL PRODUCTO
+                    int stock_actual=0;
+                    int stock_minimo=0;
                     int id_producto = 0;
                     String descripcion;
                     String clave_producto = "";
                     double precio = 0;
-                    
                     ResultSet rs2;
                     try {
+                        //OBTENER DATOS DEL PRODUCTO
                         rs2 = ventaDaoImpl.datos_producto(txtCodigoProducto.getText());
                         while (rs2.next()) {
                             id_producto = rs2.getInt("id_producto");
@@ -641,13 +650,14 @@ public class Venta extends javax.swing.JFrame {
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
-                    
+                    //COMPROBAR QUE SE CUENTA CON ESE STOCK
                    int cant = Integer.parseInt(txtCantidad.getText());
                 int stock = Integer.parseInt(Venta.stock.getText());
                 if (cant > stock) {
                     JOptionPane.showMessageDialog(null, "No se cuenta con esa cantidad de producto");
                 } 
                 else {
+                    //BUSCA QUE EL PRODUCTO NO ESTE AGREGADO EN LA TABLA
                     for (int i = 0; i < productos.size(); i++) {
                         if (productos.get(i) == id_producto) {
                            busqueda = true;
@@ -656,8 +666,10 @@ public class Venta extends javax.swing.JFrame {
                     if(busqueda==true){
                         JOptionPane.showMessageDialog(null, "El producto ya esta agregado,se recomienda modificar la cantidad");
                     }  else{
+                        //SE REALIZA LA VENTA
                             if (venController.llenar_venta(Integer.parseInt(txtId_Cliente.getText()), id_venta, id_producto, Integer.parseInt(txtCantidad.getText()), Double.parseDouble(txtDescuento.getText()), usuario.getIdUserLog())) {
                                 try {
+                                    //SE MUESTRA EN LA TABLA EL PRODUCTO QUE SE AGREEGO
                                     venController.reFillProveedores(tablaProductos, id_venta, txtCodigoProducto.getText());
                                 } catch (SQLException ex) {
                                     Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
@@ -666,6 +678,7 @@ public class Venta extends javax.swing.JFrame {
                                 importe_total();
                                 subtotal();
                                 descuento();
+                                //AQUI SE AGREGA EL PRODUCTO AL ARREGLO
                                 productos.add(id_producto);
                             } else {
                                 JOptionPane.showMessageDialog(null, "No se cuenta con esa cantidad en stock");
@@ -675,6 +688,7 @@ public class Venta extends javax.swing.JFrame {
                         txtDescuento.setText("00.00");
                         txtCantidad.setText("1");
                 }
+                //AVISA QUE SE ESTA EN EL STOCK MINIMO
                  if(stock_actual <= stock_minimo){
             JOptionPane.showMessageDialog(null, "Se esta en  el stock minimo");
             }
@@ -866,6 +880,14 @@ public class Venta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -959,7 +981,7 @@ public class Venta extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     public static javax.swing.JTextField stock;
     private javax.swing.JTable tablaProductos;
-    private javax.swing.JTextField txtCantidad;
+    public static javax.swing.JTextField txtCantidad;
     public static javax.swing.JTextField txtCodigoProducto;
     private javax.swing.JTextField txtDescuento;
     private javax.swing.JLabel txtFecha;
